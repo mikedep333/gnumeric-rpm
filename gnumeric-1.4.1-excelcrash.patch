@@ -1,0 +1,11 @@
+--- gnumeric-1.4.1.orig/plugins/excel/ms-excel-read.c	2004-11-28 05:27:04.000000000 +0000
++++ gnumeric-1.4.1/plugins/excel/ms-excel-read.c	2004-12-17 10:13:32.981467314 +0000
+@@ -4119,6 +4119,8 @@
+ static void
+ excel_read_DIMENSIONS (BiffQuery *q, ExcelWorkbook *ewb)
+ {
++	if (!(q->length))
++		return;
+ 	GnmRange r;
+ 
+ 	if (ewb->container.ver >= MS_BIFF_V8) {

@@ -1,0 +1,37 @@
+--- gnumeric-1.4.1.orig/Makefile.in	2004-12-10 15:06:35.000000000 +0000
++++ gnumeric-1.4.1/Makefile.in	2004-12-15 13:05:38.887083537 +0000
+@@ -310,20 +310,20 @@
+ gnew_DATA = gnumeric.desktop
+ 
+ Mimedir = $(datadir)/mime-info
+-Mime_DATA = gnumeric.keys gnumeric.mime
++Mime_DATA = gnumeric.mime
+ 
+ @WITH_GNOME_TRUE@serverdir = $(libdir)/bonobo/servers/
+ @WITH_GNOME_TRUE@server_in_files = GNOME_Gnumeric.server.in
+ @WITH_GNOME_TRUE@server_DATA = GNOME_Gnumeric.server
+ 
+ CLEANFILES = $(server_DATA) $(server_in_files) \
+-	gnumeric.desktop gnumeric.keys
++	gnumeric.desktop
+ 
+ DISTCLEANFILES = intltool-extract intltool-merge intltool-update
+ 
+ EXTRA_DIST = \
+ 	gnumeric.desktop.in gnumeric.spec.in GNOME_Gnumeric.server.in.in\
+-	gnumeric.keys.in gnumeric.mime 					\
++	gnumeric.mime 					\
+ 	gnumeric.xsd							\
+ 	README HACKING NEWS BEVERAGES BUGS MAINTAINERS AUTHORS $(change_logs)	\
+ 	intltool-extract.in	\
+@@ -839,10 +839,6 @@
+ 
+ @INTLTOOL_SERVER_RULE@
+ 
+-gnumeric.keys: gnumeric.keys.in Makefile
+-	sed -e 's^\@gnumeric_icondir\@^$(gnumeric_icondir)^g' < $(srcdir)/gnumeric.keys.in > gnumeric.keys.tmp \
+-	&& mv gnumeric.keys.tmp gnumeric.keys 
+-
+ gnumeric.desktop: gnumeric.desktop.in Makefile $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po)
+ 	 LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@.tmp
+ @WITH_GNOME_TRUE@	sed -e 's/F_OR_U/U/' <$@.tmp >$@.tmp2
