@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	1
+Release: 	2
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -16,7 +16,7 @@ Requires:       libgnomeui >= 2.4.0
 Requires:       libgnomeprintui22 >= 2.3.0
 Requires:       gtk2 >= 2.2.0
 Requires:       libgsf >= 1.10.0
-#Requires:  	libgnomedb >= 1.0.4
+Requires:  	libgnomedb >= 1.0.4
 PreReq:         desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires:  desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires:  libgnomeui-devel >= 2.4.0
@@ -26,7 +26,7 @@ BuildRequires:  python-devel
 BuildRequires:  libgsf-devel >= 1.10.0
 BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext desktop-file-utils
-#BuildRequires:  libgnomedb-devel >= 1.0.4
+BuildRequires:  libgnomedb-devel >= 1.0.4
 BuildRequires:  pango-devel >= 1.4.0
 Patch0: gnumeric-1.4.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
@@ -138,6 +138,9 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Tue Mar 15 2005 Caolan McNamara <caolanm@redhat.com> 1.4.3-2
+- add libgnomedb to extras and gnumeric's requires
+
 * Mon Mar 14 2005 Caolan McNamara <caolanm@redhat.com> 1.4.3-1
 - bump to latest, first in extras
 - drop helppath
