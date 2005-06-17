@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	2
+Release: 	3
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -15,7 +15,7 @@ BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 Requires:       libgnomeui >= 2.4.0
 Requires:       libgnomeprintui22 >= 2.3.0
 Requires:       gtk2 >= 2.2.0
-Requires:       libgsf >= 1.10.0
+Requires:       libgsf >= 1.12
 Requires:  	libgnomedb >= 1.0.4
 PreReq:         desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires:  desktop-file-utils >= %{desktop_file_utils_version}
@@ -23,7 +23,7 @@ BuildRequires:  libgnomeui-devel >= 2.4.0
 BuildRequires:  libgnomeprintui22-devel >= 0.20
 BuildRequires:  libxml2-devel
 BuildRequires:  python-devel
-BuildRequires:  libgsf-devel >= 1.10.0
+BuildRequires:  libgsf-devel >= 1.12
 BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext desktop-file-utils
 BuildRequires:  libgnomedb-devel >= 1.0.4
@@ -31,6 +31,7 @@ BuildRequires:  pango-devel >= 1.4.0
 Patch0: gnumeric-1.4.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
 Patch2: gnumeric-1.4.1-configure.patch
+Patch3: gnumeric-1.4.3-libgsf.patch
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -51,6 +52,7 @@ develop gnumeric-based applications.
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
 %patch2 -p1 -b .configure
+%patch3 -p1 -b .libgsf
 
 %build
 libtoolize --force --copy && aclocal && autoconf
@@ -138,6 +140,10 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Fri Jun 17 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-3
+- Add patch3: fix excell export with libgsf >= 0.12 (bugzilla #160075),
+  Thanks to Caolan McNamara.
+
 * Tue Mar 15 2005 Caolan McNamara <caolanm@redhat.com> 1.4.3-2
 - add libgnomedb to extras and gnumeric's requires
 
