@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	3
+Release: 	4
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -25,9 +25,12 @@ BuildRequires:  libxml2-devel
 BuildRequires:  python-devel
 BuildRequires:  libgsf-devel >= 1.12
 BuildRequires:  automake autoconf libtool
-BuildRequires:  intltool scrollkeeper gettext desktop-file-utils
+BuildRequires:  intltool scrollkeeper gettext
 BuildRequires:  libgnomedb-devel >= 1.0.4
 BuildRequires:  pango-devel >= 1.4.0
+BuildRequires:  gtk2-devel >= 2.2.0
+BuildRequires:  libart_lgpl-devel >= 2.3.0
+BuildRequires:  pygtk2-devel >= 2.6.0
 Patch0: gnumeric-1.4.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
 Patch2: gnumeric-1.4.1-configure.patch
@@ -140,6 +143,13 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Mon Jul 4 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-4
+- For some reason gtk2-devel no longer gets sucked in by our other
+  buildrequires so explicitly add it.
+- libart_lgpl-devel is now needed for building, so add this.
+- I also noticed in the configure output that gnumeric can
+  use pygtk2, so add this.
+
 * Fri Jun 17 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-3
 - Add patch3: fix excell export with libgsf >= 0.12 (bugzilla #160075),
   Thanks to Caolan McNamara.
