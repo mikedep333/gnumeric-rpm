@@ -28,8 +28,6 @@ BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext
 BuildRequires:  libgnomedb-devel >= 1.0.4
 BuildRequires:  pango-devel >= 1.4.0
-BuildRequires:  gtk2-devel >= 2.2.0
-BuildRequires:  libart_lgpl-devel >= 2.3.0
 BuildRequires:  pygtk2-devel >= 2.6.0
 Patch0: gnumeric-1.4.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
@@ -143,6 +141,11 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Fri Aug 5 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-5
+- gtk2-devel and libart_lgpl-devel where not getting sucked in because
+  of a bug in another package this has been fixed now so the buildrequires
+  have been removed again.
+
 * Mon Jul 4 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-4
 - For some reason gtk2-devel no longer gets sucked in by our other
   buildrequires so explicitly add it.
