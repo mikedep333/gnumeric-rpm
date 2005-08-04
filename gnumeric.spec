@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	4
+Release: 	5
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
