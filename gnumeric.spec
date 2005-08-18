@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	5
+Release: 	6
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -141,6 +141,9 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Thu Aug 18 2005 Jeremy Katz <katzj@redhat.com> - 1:1.4.3-6
+- rebuild for changes in the devel tree
+
 * Fri Aug 5 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1.4.3-5
 - gtk2-devel and libart_lgpl-devel where not getting sucked in because
   of a bug in another package this has been fixed now so the buildrequires
