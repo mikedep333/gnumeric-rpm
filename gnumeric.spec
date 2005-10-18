@@ -4,7 +4,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.4.3
-Release: 	6
+Release: 	7
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -124,6 +124,8 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}/plugins
 %{_datadir}/gnumeric/%{gnumeric_version}/*
 %{_datadir}/mime-info/gnumeric.mime
+%dir %{_datadir}/mc
+%dir %{_datadir}/mc/templates
 %{_datadir}/mc/templates/gnumeric.desktop
 %{_datadir}/applications/*
 %dir %{_datadir}/omf/gnumeric/
@@ -141,6 +143,9 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
+* Unreleased, Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.4.3-7
+- own dirs /usr/share/mc/templates /usr/share/mc
+
 * Thu Aug 18 2005 Jeremy Katz <katzj@redhat.com> - 1:1.4.3-6
 - rebuild for changes in the devel tree
 
