@@ -144,7 +144,7 @@ update-desktop-database %{_datadir}/applications
 
 %changelog
 * Unreleased, Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.4.3-7
-- own dirs /usr/share/mc/templates /usr/share/mc
+- own dirs /usr/share/mc/templates /usr/share/mc (bug 169332)
 
 * Thu Aug 18 2005 Jeremy Katz <katzj@redhat.com> - 1:1.4.3-6
 - rebuild for changes in the devel tree
