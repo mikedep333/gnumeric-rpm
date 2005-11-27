@@ -3,8 +3,8 @@
 
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
-Version: 	1.4.3
-Release: 	7
+Version: 	1.6.1
+Release: 	1
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -12,27 +12,24 @@ Source: 	ftp://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.2/gnumeric-%{version}.
 URL:		http://www.gnome.org/gnumeric/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
 
-Requires:       libgnomeui >= 2.4.0
-Requires:       libgnomeprintui22 >= 2.3.0
-Requires:       gtk2 >= 2.2.0
-Requires:       libgsf >= 1.12
+Requires:       libgnomeui >= 2.8.2
+Requires:       libgnomeprintui22 >= 2.8.2
+Requires:       gtk2 >= 2.6.0
 Requires:  	libgnomedb >= 1.0.4
 PreReq:         desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires:  desktop-file-utils >= %{desktop_file_utils_version}
 BuildRequires:  libgnomeui-devel >= 2.4.0
-BuildRequires:  libgnomeprintui22-devel >= 0.20
-BuildRequires:  libxml2-devel
+BuildRequires:  libgnomeprintui22-devel >= 2.8.2
 BuildRequires:  python-devel
-BuildRequires:  libgsf-devel >= 1.12
+BuildRequires:  libgsf113-devel >= 1.13.2
 BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext
 BuildRequires:  libgnomedb-devel >= 1.0.4
-BuildRequires:  pango-devel >= 1.4.0
 BuildRequires:  pygtk2-devel >= 2.6.0
-Patch0: gnumeric-1.4.1-desktop.patch
+BuildRequires:  goffice >= 0.1.2
+BuildRequires:  guile-devel
+Patch0: gnumeric-1.6.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
-Patch2: gnumeric-1.4.1-configure.patch
-Patch3: gnumeric-1.4.3-libgsf.patch
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -52,13 +49,12 @@ develop gnumeric-based applications.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
-%patch2 -p1 -b .configure
-%patch3 -p1 -b .libgsf
 
 %build
 libtoolize --force --copy && aclocal && autoconf
 export mllibname=%{_lib}
-%configure --without-gb --without-guile
+export PKG_CONFIG_PATH=%{_libdir}/libgsf-1.13/lib/pkgconfig
+%configure --without-gb
 
 OLD_PO_FILE_INPUT=yes make
 
@@ -143,7 +139,9 @@ update-desktop-database %{_datadir}/applications
 %dir %{_libdir}/gnumeric/%{gnumeric_version}
 
 %changelog
-* Unreleased, Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.4.3-7
+* Sat Nov 26 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-1
+- new upstream stable version 1.6.1
+- drop 2 integrated patches
 - own dirs /usr/share/mc/templates /usr/share/mc (bug 169332)
 
 * Thu Aug 18 2005 Jeremy Katz <katzj@redhat.com> - 1:1.4.3-6
