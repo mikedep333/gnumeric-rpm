@@ -23,7 +23,7 @@ BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext
 BuildRequires:  libgnomedb-devel >= 1.0.4
 BuildRequires:  pygtk2-devel >= 2.6.0
-BuildRequires:  goffice >= 0.1.2
+BuildRequires:  goffice-devel >= 0.1.2
 BuildRequires:  guile-devel
 Patch0: gnumeric-1.6.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
