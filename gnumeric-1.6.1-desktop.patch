@@ -1,5 +1,5 @@
 --- gnumeric-1.6.1/Makefile.in.desktop	2005-11-14 07:18:15.000000000 +0100
-+++ gnumeric-1.6.1/Makefile.in	2005-11-26 22:53:14.000000000 +0100
++++ gnumeric-1.6.1/Makefile.in	2005-11-30 09:31:13.000000000 +0100
 @@ -344,18 +344,17 @@
  gnew_in_files = gnumeric.desktop.in
  gnew_DATA = gnumeric.desktop
@@ -32,3 +32,14 @@
  gnumeric.desktop: gnumeric.desktop.in Makefile $(INTLTOOL_MERGE) $(POFILES_FULL)
  	 LC_ALL=C $(INTLTOOL_MERGE) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@.tmp
  @WITH_GNOME_TRUE@	sed -e 's/F_OR_U/U/' <$@.tmp >$@.tmp2
+--- gnumeric-1.6.1/gnumeric.desktop.in.desktop	2005-11-30 09:31:53.000000000 +0100
++++ gnumeric-1.6.1/gnumeric.desktop.in	2005-11-30 09:31:53.000000000 +0100
+@@ -4,7 +4,7 @@
+ _GenericName=Spreadsheet
+ _Comment=The GNOME Spreadsheet
+ Exec=gnumeric %F_OR_U
+-Icon=gnome-gnumeric.png
++Icon=gnumeric.png
+ Terminal=false
+ Type=Application
+ Categories=Application;Office;Spreadsheet;

@@ -1,6 +1,3 @@
-%define gnumeric_version %{version}
-%define desktop_file_utils_version 0.9
-
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.6.1
@@ -16,8 +13,8 @@ Requires:       libgnomeui >= 2.8.2
 Requires:       libgnomeprintui22 >= 2.8.2
 Requires:       gtk2 >= 2.6.0
 Requires:  	libgnomedb >= 1.0.4
-PreReq:         desktop-file-utils >= %{desktop_file_utils_version}
-BuildRequires:  desktop-file-utils >= %{desktop_file_utils_version}
+PreReq:         desktop-file-utils >= 0.9
+BuildRequires:  desktop-file-utils >= 0.9
 BuildRequires:  libgnomeui-devel >= 2.4.0
 BuildRequires:  libgnomeprintui22-devel >= 2.8.2
 BuildRequires:  python-devel
@@ -54,7 +51,7 @@ develop gnumeric-based applications.
 libtoolize --force --copy && aclocal && autoconf
 export mllibname=%{_lib}
 export PKG_CONFIG_PATH=%{_libdir}/libgsf-1.13/lib/pkgconfig
-%configure --without-gb
+%configure --without-gb --enable-ssindex
 
 OLD_PO_FILE_INPUT=yes make
 
@@ -66,83 +63,85 @@ make DESTDIR=$RPM_BUILD_ROOT install
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
 if [ -f /usr/lib/rpm/find-lang.sh ] ; then
- /usr/lib/rpm/find-lang.sh $RPM_BUILD_ROOT %name
+  /usr/lib/rpm/find-lang.sh $RPM_BUILD_ROOT %name --all-name --with-gnome
 fi
 
 ./mkinstalldirs $RPM_BUILD_ROOT%{_datadir}/applications
-desktop-file-install --vendor gnome --delete-original                   \
+desktop-file-install --vendor fedora --delete-original                  \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
-  --add-category X-Red-Hat-Extra                                        \
+  --add-category X-Fedora                                               \
   --add-category Office                                                 \
   --add-category Application                                            \
   --add-category Spreadsheet                                            \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
+#put icon in the proper place
+mkdir -p $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps
+mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-gnumeric.png \
+  $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/gnumeric.png
+
+#remove unused mime type icons
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnome-application-*.png
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnumeric-gnome-application-*.png
+
 #remove spurious .ico thing
 rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/win32-gnumeric.ico
+rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/gnumeric/win32-gnumeric.ico
 
 #remove scrollkeeper stuff
 rm -rf $RPM_BUILD_ROOT/var
+
+#remove .la files
+rm -rf $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
+rm -rf $RPM_BUILD_ROOT/%{_libdir}/gnumeric/%{version}/plugins/*/*.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/ldconfig
-update-desktop-database %{_datadir}/applications
-
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null
+/usr/bin/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null 2>&1
+if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
 
 %postun
 /sbin/ldconfig
-update-desktop-database %{_datadir}/applications
+if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
 
 %files -f %{name}.lang
-
-%defattr (0755, root, root)
-%{_bindir}/*
-%dir %{_libdir}/gnumeric
-%dir %{_libdir}/gnumeric/%{gnumeric_version}
-%{_libdir}/gnumeric/%{gnumeric_version}/plugins/*
-# guile disabled due to 64-bit crash
-## %{_datadir}/gnumeric/%{gnumeric_version}/guile
-# FIXME - for s390 it builds some more with "--with-pic=-fPIC", but the
-# grep for dlname then still fails.
-
-%defattr (0644, root, root, 0755)
-%doc HACKING AUTHORS ChangeLog NEWS BUGS README COPYING TODO
-%{_datadir}/pixmaps/gnumeric
-%{_datadir}/pixmaps/gnome-application-*.png
-%{_datadir}/pixmaps/gnome-gnumeric.png
-%dir %{_datadir}/gnumeric
-%dir %{_datadir}/gnumeric/%{gnumeric_version} 
-%dir %{_libdir}/gnumeric/%{gnumeric_version}/plugins
-%{_datadir}/gnumeric/%{gnumeric_version}/*
-%{_datadir}/mime-info/gnumeric.mime
-%dir %{_datadir}/mc
-%dir %{_datadir}/mc/templates
-%{_datadir}/mc/templates/gnumeric.desktop
-%{_datadir}/applications/*
-%dir %{_datadir}/omf/gnumeric/
-%{_datadir}/omf/gnumeric/*
+%defattr(-,root,root)
+%doc HACKING AUTHORS ChangeLog NEWS BUGS README COPYING
 %{_sysconfdir}/gconf/schemas/*.schemas
+%{_bindir}/*
+%{_libdir}/*.so
+%{_libdir}/gnumeric
 %{_libdir}/bonobo/servers/GNOME_Gnumeric.server
+%{_datadir}/pixmaps/gnumeric
+%{_datadir}/icons/hicolor/48x48/apps/gnumeric.png
+%dir %{_datadir}/gnumeric
+%dir %{_datadir}/gnumeric/%{version}
+%{_datadir}/gnumeric/%{version}/*
+%{_datadir}/mime-info
+%{_datadir}/mc
+%{_datadir}/applications/*
+%{_datadir}/omf
 %{_mandir}/man1/*
 
 %files devel
-%defattr (-, root, root)
-%dir %{_datadir}/gnumeric
-%dir %{_datadir}/gnumeric/%{gnumeric_version} 
-%{_datadir}/gnumeric/%{gnumeric_version}/idl/*.idl
-%dir %{_libdir}/gnumeric
-%dir %{_libdir}/gnumeric/%{gnumeric_version}
+%defattr(-,root,root)
+%dir %{_datadir}/gnumeric/%{version}/idl
+%{_datadir}/gnumeric/%{version}/idl/*.idl
 
 %changelog
 * Sat Nov 26 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-1
 - new upstream stable version 1.6.1
 - drop 2 integrated patches
 - own dirs /usr/share/mc/templates /usr/share/mc (bug 169332)
+- proper use of desktop-file-install (bug 171963)
+- put icon in the proper freedesktop.org spec matching icon dir (bug 171964)
+- remove unused mime-type icons
+- clean up specfile, own all dirs not owned by Required packages.
+- add --enable-ssindex (bug 172164)
 
 * Thu Aug 18 2005 Jeremy Katz <katzj@redhat.com> - 1:1.4.3-6
 - rebuild for changes in the devel tree
@@ -430,4 +429,3 @@ _ delete unused patches
 
 * Thu Jul 13 2000 Prospector <bugzilla@redhat.com>
 - automatic rebuild
-
