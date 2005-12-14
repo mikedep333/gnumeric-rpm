@@ -1,7 +1,7 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.6.1
-Release: 	1
+Release: 	2
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
@@ -18,12 +18,12 @@ BuildRequires:  desktop-file-utils >= 0.9
 BuildRequires:  libgnomeui-devel >= 2.4.0
 BuildRequires:  libgnomeprintui22-devel >= 2.8.2
 BuildRequires:  python-devel
-BuildRequires:  libgsf113-devel >= 1.13.2
+BuildRequires:  libgsf-devel >= 1.13.2
 BuildRequires:  automake autoconf libtool
 BuildRequires:  intltool scrollkeeper gettext
 BuildRequires:  libgnomedb-devel >= 1.0.4
 BuildRequires:  pygtk2-devel >= 2.6.0
-BuildRequires:  goffice-devel >= 0.1.2
+BuildRequires:  goffice-devel >= 0.1.2-3
 BuildRequires:  guile-devel
 Patch0: gnumeric-1.6.1-desktop.patch
 Patch1: gnumeric-1.4.1-excelcrash.patch
@@ -50,7 +50,6 @@ develop gnumeric-based applications.
 %build
 libtoolize --force --copy && aclocal && autoconf
 export mllibname=%{_lib}
-export PKG_CONFIG_PATH=%{_libdir}/libgsf-1.13/lib/pkgconfig
 %configure --without-gb --enable-ssindex
 
 OLD_PO_FILE_INPUT=yes make
@@ -133,6 +132,10 @@ if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
 %{_datadir}/gnumeric/%{version}/idl/*.idl
 
 %changelog
+* Thu Dec  8 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-2
+- Switch to core version of libgsf now Core has 1.13 instead of using special
+  Extras libgsf113 version.
+
 * Sat Nov 26 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-1
 - new upstream stable version 1.6.1
 - drop 2 integrated patches
