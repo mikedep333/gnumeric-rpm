@@ -1,19 +1,13 @@
 Summary:        A spreadsheet program for GNOME.
 Name:     	gnumeric
 Version: 	1.6.1
-Release: 	2
+Release: 	3
 Epoch:		1
 License:	GPL
 Group:		Applications/Productivity
 Source: 	ftp://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.2/gnumeric-%{version}.tar.bz2
 URL:		http://www.gnome.org/gnumeric/
 BuildRoot:	%{_tmppath}/%{name}-%{version}-root
-
-Requires:       libgnomeui >= 2.8.2
-Requires:       libgnomeprintui22 >= 2.8.2
-Requires:       gtk2 >= 2.6.0
-Requires:  	libgnomedb >= 1.0.4
-PreReq:         desktop-file-utils >= 0.9
 BuildRequires:  desktop-file-utils >= 0.9
 BuildRequires:  libgnomeui-devel >= 2.4.0
 BuildRequires:  libgnomeprintui22-devel >= 2.8.2
@@ -102,10 +96,18 @@ rm -rf $RPM_BUILD_ROOT
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 /usr/bin/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null 2>&1
 if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
+touch %{_datadir}/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  /usr/bin/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
+fi
 
 %postun
 /sbin/ldconfig
 if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
+touch %{_datadir}/icons/hicolor
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+  /usr/bin/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
+fi
 
 %files -f %{name}.lang
 %defattr(-,root,root)
@@ -132,6 +134,10 @@ if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
 %{_datadir}/gnumeric/%{version}/idl/*.idl
 
 %changelog
+* Sat Jan 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-3
+- Cleanup Requires
+- Add (missing) call of gtk-update-icon-cache to %%post and %%postun
+
 * Thu Dec  8 2005 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-2
 - Switch to core version of libgsf now Core has 1.13 instead of using special
   Extras libgsf113 version.
