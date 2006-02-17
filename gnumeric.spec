@@ -1,30 +1,35 @@
-Summary:        A spreadsheet program for GNOME.
-Name:     	gnumeric
-Version: 	1.6.1
-Release: 	3
-Epoch:		1
-License:	GPL
-Group:		Applications/Productivity
-Source: 	ftp://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.2/gnumeric-%{version}.tar.bz2
-URL:		http://www.gnome.org/gnumeric/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-root
-BuildRequires:  desktop-file-utils >= 0.9
-BuildRequires:  libgnomeui-devel >= 2.4.0
-BuildRequires:  libgnomeprintui22-devel >= 2.8.2
-BuildRequires:  python-devel
-BuildRequires:  libgsf-devel >= 1.13.2
-BuildRequires:  automake autoconf libtool
-BuildRequires:  intltool scrollkeeper gettext
-BuildRequires:  libgnomedb-devel >= 1.0.4
-BuildRequires:  pygtk2-devel >= 2.6.0
-BuildRequires:  goffice-devel >= 0.1.2-3
-BuildRequires:  guile-devel
-Patch0: gnumeric-1.6.1-desktop.patch
-Patch1: gnumeric-1.4.1-excelcrash.patch
+Summary:          A spreadsheet program for GNOME.
+Name:             gnumeric
+Version:          1.6.2
+Release:          1%{?dist}
+Epoch:            1
+License:          GPL
+Group:            Applications/Productivity
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.2/gnumeric-%{version}.tar.bz2
+URL:              http://www.gnome.org/gnumeric/
+BuildRoot:        %{_tmppath}/%{name}-%{version}-root
+BuildRequires:    desktop-file-utils >= 0.9
+BuildRequires:    libgnomeui-devel >= 2.4.0
+BuildRequires:    libgnomeprintui22-devel >= 2.8.2
+BuildRequires:    python-devel
+BuildRequires:    libgsf-devel >= 1.13.2
+BuildRequires:    automake autoconf libtool
+BuildRequires:    intltool scrollkeeper gettext
+BuildRequires:    libgnomedb-devel >= 1.0.4
+BuildRequires:    pygtk2-devel >= 2.6.0
+BuildRequires:    goffice-devel >= 0.2.0
+BuildRequires:    guile-devel
+Patch0:           gnumeric-1.6.1-desktop.patch
+Patch1:           gnumeric-1.4.1-excelcrash.patch
+Requires(pre):    GConf2
+Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
+Requires(preun):  GConf2
+Requires(postun): /sbin/ldconfig scrollkeeper
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
 environment.
+
 
 %package devel
 Summary: Files necessary to develop gnumeric-based applications.
@@ -36,10 +41,12 @@ Gnumeric is a spreadsheet program for the GNOME GUI desktop
 environment. The gnumeric-devel package includes files necessary to
 develop gnumeric-based applications.
 
+
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
+
 
 %build
 libtoolize --force --copy && aclocal && autoconf
@@ -47,6 +54,7 @@ export mllibname=%{_lib}
 %configure --without-gb --enable-ssindex
 
 OLD_PO_FILE_INPUT=yes make
+
 
 %install
 [ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
@@ -88,26 +96,47 @@ rm -rf $RPM_BUILD_ROOT/var
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/gnumeric/%{version}/plugins/*/*.la
 
+
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+
+%pre
+if [ "$1" -gt 1 ]; then
+    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+    gconftool-2 --makefile-uninstall-rule \
+      %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+fi
+
 
 %post
 /sbin/ldconfig
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-/usr/bin/gconftool-2 --makefile-install-rule %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null 2>&1
-if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
-touch %{_datadir}/icons/hicolor
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  /usr/bin/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
+/usr/bin/gconftool-2 --makefile-install-rule \
+  %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
+
+
+%preun
+if [ "$1" -eq 0 ]; then
+    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
+    gconftool-2 --makefile-uninstall-rule \
+      %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+fi
+
 
 %postun
 /sbin/ldconfig
-if which scrollkeeper-update >/dev/null 2>&1; then scrollkeeper-update; fi
-touch %{_datadir}/icons/hicolor
-if [ -x /usr/bin/gtk-update-icon-cache ]; then
-  /usr/bin/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor
+scrollkeeper-update -q || :
+touch --no-create %{_datadir}/icons/hicolor || :
+if [ -x %{_bindir}/gtk-update-icon-cache ]; then
+   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
+
 
 %files -f %{name}.lang
 %defattr(-,root,root)
@@ -133,7 +162,14 @@ fi
 %dir %{_datadir}/gnumeric/%{version}/idl
 %{_datadir}/gnumeric/%{version}/idl/*.idl
 
+
 %changelog
+* Thu Feb 16 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-1
+- New upstream version
+- Rebuild for new gcc4.1 and glibc
+- add %%{?dist} for consistency with my other packages
+- Update scripts to match the scriptlets wiki page
+
 * Sat Jan 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.1-3
 - Cleanup Requires
 - Add (missing) call of gtk-update-icon-cache to %%post and %%postun
