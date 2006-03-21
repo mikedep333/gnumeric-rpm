@@ -1,7 +1,7 @@
 Summary:          A spreadsheet program for GNOME.
 Name:             gnumeric
 Version:          1.6.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -164,6 +164,9 @@ fi
 
 
 %changelog
+* Tue Mar 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-2
+- rebuild for new libgsf
+
 * Thu Feb 16 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-1
 - New upstream version
 - Rebuild for new gcc4.1 and glibc
