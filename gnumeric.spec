@@ -1,7 +1,7 @@
-Summary:          A spreadsheet program for GNOME.
+Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
 Version:          1.6.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT/var
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/gnumeric/%{version}/plugins/*/*.la
 
+#remove bogus mc stuff
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/mc
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -152,7 +155,6 @@ fi
 %dir %{_datadir}/gnumeric/%{version}
 %{_datadir}/gnumeric/%{version}/*
 %{_datadir}/mime-info
-%{_datadir}/mc
 %{_datadir}/applications/*
 %{_datadir}/omf
 %{_mandir}/man1/*
@@ -164,6 +166,9 @@ fi
 
 
 %changelog
+* Sat Apr  8 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-3
+- drop bogus mc stuff (bz 169332)
+
 * Tue Mar 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-2
 - rebuild for new libgsf
 
