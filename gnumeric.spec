@@ -1,7 +1,7 @@
 Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
-Version:          1.6.2
-Release:          3%{?dist}
+Version:          1.6.3
+Release:          1%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -166,6 +166,9 @@ fi
 
 
 %changelog
+* Tue May  2 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-1
+- new upstream version 1.6.3
+
 * Sat Apr  8 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.2-3
 - drop bogus mc stuff (bz 169332)
 
