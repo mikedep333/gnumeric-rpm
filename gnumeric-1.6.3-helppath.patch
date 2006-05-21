@@ -1,0 +1,11 @@
+--- gnumeric-1.6.3/src/wbcg-actions.c~	2006-05-21 15:36:33.000000000 +0200
++++ gnumeric-1.6.3/src/wbcg-actions.c	2006-05-21 15:36:33.000000000 +0200
+@@ -910,7 +910,7 @@
+ #warning "handle translations when we generate them"
+ #ifndef G_OS_WIN32
+ 	argv[0] = (char *)"yelp";
+-	argv[1] = g_build_filename (gnm_sys_data_dir (), "doc", "C",
++	argv[1] = g_build_filename ("/usr/share/gnome/help/gnumeric", "C",
+ 			"gnumeric.xml", NULL);
+ #else
+ 	argv[0] = (char *)"hh";

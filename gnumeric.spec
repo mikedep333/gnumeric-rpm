@@ -1,7 +1,7 @@
 Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
 Version:          1.6.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -21,6 +21,7 @@ BuildRequires:    goffice-devel >= 0.2.0
 BuildRequires:    guile-devel
 Patch0:           gnumeric-1.6.1-desktop.patch
 Patch1:           gnumeric-1.4.1-excelcrash.patch
+Patch2:           gnumeric-1.6.3-helppath.patch
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
 Requires(preun):  GConf2
@@ -46,6 +47,7 @@ develop gnumeric-based applications.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
+%patch2 -p1 -b .helppath
 
 
 %build
@@ -166,6 +168,9 @@ fi
 
 
 %changelog
+* Sun May 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-2
+- Add Patch3 fixing gnumeric not finding its help files (bz 192581).
+
 * Tue May  2 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-1
 - new upstream version 1.6.3
 
