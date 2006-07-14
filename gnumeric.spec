@@ -1,7 +1,7 @@
 Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
 Version:          1.6.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -148,14 +148,15 @@ fi
 %doc HACKING AUTHORS ChangeLog NEWS BUGS README COPYING
 %{_sysconfdir}/gconf/schemas/*.schemas
 %{_bindir}/*
-%{_libdir}/*.so
-%{_libdir}/gnumeric
+%{_libdir}/libspreadsheet-%{version}.so
+%dir %{_libdir}/gnumeric
+%{_libdir}/gnumeric/%{version}
 %{_libdir}/bonobo/servers/GNOME_Gnumeric.server
 %{_datadir}/pixmaps/gnumeric
 %{_datadir}/icons/hicolor/48x48/apps/gnumeric.png
 %dir %{_datadir}/gnumeric
-%dir %{_datadir}/gnumeric/%{version}
-%{_datadir}/gnumeric/%{version}/*
+%{_datadir}/gnumeric/%{version}
+%exclude %{_datadir}/gnumeric/%{version}/idl
 %{_datadir}/mime-info
 %{_datadir}/applications/*
 %{_datadir}/omf
@@ -163,11 +164,15 @@ fi
 
 %files devel
 %defattr(-,root,root)
-%dir %{_datadir}/gnumeric/%{version}/idl
-%{_datadir}/gnumeric/%{version}/idl/*.idl
+%{_datadir}/gnumeric/%{version}/idl
+%{_libdir}/libspreadsheet.so
 
 
 %changelog
+* Fri Jul 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-3
+- Fix idl file being in both the main and the devel package
+- Move libspreadsheet.so symlink to the devel package
+
 * Sun May 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-2
 - Add Patch3 fixing gnumeric not finding its help files (bz 192581).
 
