@@ -1,7 +1,7 @@
 Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
 Version:          1.6.3
-Release:          3%{?dist}
+Release:          4%{?dist}
 Epoch:            1
 License:          GPL
 Group:            Applications/Productivity
@@ -169,6 +169,9 @@ fi
 
 
 %changelog
+* Mon Aug 28 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-4
+- FE6 Rebuild
+
 * Fri Jul 21 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-3
 - Fix idl file being in both the main and the devel package
 - Move libspreadsheet.so symlink to the devel package
