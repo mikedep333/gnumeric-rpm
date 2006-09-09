@@ -1,12 +1,15 @@
-Summary:          Spreadsheet program for GNOME
 Name:             gnumeric
-Version:          1.6.3
-Release:          4%{?dist}
 Epoch:            1
-License:          GPL
+Version:          1.6.3
+Release:          5%{?dist}
+Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/gnumeric/1.2/gnumeric-%{version}.tar.bz2
+License:          GPL
 URL:              http://www.gnome.org/gnumeric/
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar.bz2
+Patch0:           gnumeric-1.6.1-desktop.patch
+Patch1:           gnumeric-1.4.1-excelcrash.patch
+Patch2:           gnumeric-1.6.3-helppath.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    desktop-file-utils >= 0.9
 BuildRequires:    libgnomeui-devel >= 2.4.0
@@ -19,9 +22,7 @@ BuildRequires:    libgnomedb-devel >= 1.0.4
 BuildRequires:    pygtk2-devel >= 2.6.0
 BuildRequires:    goffice-devel >= 0.2.0
 BuildRequires:    guile-devel
-Patch0:           gnumeric-1.6.1-desktop.patch
-Patch1:           gnumeric-1.4.1-excelcrash.patch
-Patch2:           gnumeric-1.6.3-helppath.patch
+Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
 Requires(preun):  GConf2
@@ -54,22 +55,19 @@ develop gnumeric-based applications.
 libtoolize --force --copy && aclocal && autoconf
 export mllibname=%{_lib}
 %configure --without-gb --enable-ssindex
-
 OLD_PO_FILE_INPUT=yes make
 
 
 %install
-[ -n "$RPM_BUILD_ROOT" -a "$RPM_BUILD_ROOT" != / ] && rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
 make DESTDIR=$RPM_BUILD_ROOT install
 unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 
-if [ -f /usr/lib/rpm/find-lang.sh ] ; then
-  /usr/lib/rpm/find-lang.sh $RPM_BUILD_ROOT %name --all-name --with-gnome
-fi
+/usr/lib/rpm/find-lang.sh $RPM_BUILD_ROOT %{name} --all-name --with-gnome
 
-./mkinstalldirs $RPM_BUILD_ROOT%{_datadir}/applications
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --vendor fedora --delete-original                  \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
   --add-category X-Fedora                                               \
@@ -80,23 +78,23 @@ desktop-file-install --vendor fedora --delete-original                  \
 
 #put icon in the proper place
 mkdir -p $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps
-mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-gnumeric.png \
-  $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/gnumeric.png
+mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-%{name}.png \
+  $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/%{name}.png
 
 #remove unused mime type icons
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnome-application-*.png
-rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnumeric-gnome-application-*.png
+rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/%{name}-gnome-application-*.png
 
 #remove spurious .ico thing
-rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/win32-gnumeric.ico
-rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/gnumeric/win32-gnumeric.ico
+rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/win32-%{name}.ico
+rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
 
 #remove scrollkeeper stuff
 rm -rf $RPM_BUILD_ROOT/var
 
 #remove .la files
 rm -rf $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/gnumeric/%{version}/plugins/*/*.la
+rm -rf $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
 
 #remove bogus mc stuff
 rm -rf $RPM_BUILD_ROOT/%{_datadir}/mc
@@ -110,7 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" -gt 1 ]; then
     export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
     gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+      %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
 fi
 
 
@@ -118,7 +116,7 @@ fi
 /sbin/ldconfig
 export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
 /usr/bin/gconftool-2 --makefile-install-rule \
-  %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+  %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
 scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
 touch --no-create %{_datadir}/icons/hicolor || :
 if [ -x %{_bindir}/gtk-update-icon-cache ]; then
@@ -130,7 +128,7 @@ fi
 if [ "$1" -eq 0 ]; then
     export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
     gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/gnumeric*.schemas > /dev/null || :
+      %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
 fi
 
 
@@ -144,31 +142,35 @@ fi
 
 
 %files -f %{name}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
 %doc HACKING AUTHORS ChangeLog NEWS BUGS README COPYING
 %{_sysconfdir}/gconf/schemas/*.schemas
 %{_bindir}/*
 %{_libdir}/libspreadsheet-%{version}.so
-%dir %{_libdir}/gnumeric
-%{_libdir}/gnumeric/%{version}
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/%{version}
 %{_libdir}/bonobo/servers/GNOME_Gnumeric.server
-%{_datadir}/pixmaps/gnumeric
-%{_datadir}/icons/hicolor/48x48/apps/gnumeric.png
-%dir %{_datadir}/gnumeric
-%{_datadir}/gnumeric/%{version}
-%exclude %{_datadir}/gnumeric/%{version}/idl
+%{_datadir}/pixmaps/%{name}
+%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/%{version}
+%exclude %{_datadir}/%{name}/%{version}/idl
 %{_datadir}/mime-info
-%{_datadir}/applications/*
-%{_datadir}/omf
+%{_datadir}/applications/fedora-%{name}.desktop
+%{_datadir}/omf/%{name}
 %{_mandir}/man1/*
 
 %files devel
 %defattr(-,root,root)
-%{_datadir}/gnumeric/%{version}/idl
+%{_datadir}/%{name}/%{version}/idl
 %{_libdir}/libspreadsheet.so
 
 
 %changelog
+* Sat Sep  9 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-5
+- Various specfile cleanups
+- Don't own /usr/share/omf (bug 205667)
+
 * Mon Aug 28 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-4
 - FE6 Rebuild
 
