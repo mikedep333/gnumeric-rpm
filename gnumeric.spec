@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 License:          GPL
@@ -15,7 +15,7 @@ BuildRequires:    desktop-file-utils >= 0.9
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
 BuildRequires:    python-devel
-BuildRequires:    libgsf-devel >= 1.13.2
+BuildRequires:    libgsf-gnome-devel >= 1.13.2
 BuildRequires:    automake autoconf libtool
 BuildRequires:    intltool scrollkeeper gettext
 BuildRequires:    libgnomedb-devel >= 1.0.4
@@ -167,6 +167,9 @@ fi
 
 
 %changelog
+* Mon Feb 19 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-6
+- Change BuildRequires: libgsf-devel to libgsf-gnome-devel to fix rawhide build
+
 * Sat Sep  9 2006 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-5
 - Various specfile cleanups
 - Don't own /usr/share/omf (bug 205667)
