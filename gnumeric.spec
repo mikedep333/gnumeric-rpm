@@ -34,7 +34,7 @@ environment.
 
 
 %package devel
-Summary: Files necessary to develop gnumeric-based applications.
+Summary: Files necessary to develop gnumeric-based applications
 Group: Development/Libraries
 Requires: %{name} = %{epoch}:%{version}-%{release}
 
@@ -49,6 +49,7 @@ develop gnumeric-based applications.
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
 %patch2 -p1 -b .helppath
+chmod -x plugins/excel/rc4.?
 
 
 %build
@@ -328,7 +329,7 @@ _ delete unused patches
 - add ssconvert
 
 * Tue Oct 14 2003 Havoc Pennington <hp@redhat.com> 1:1.2.1-1
-- add %post to install schemas
+- add %%post to install schemas
 - 1.2.1
 
 * Fri Sep 19 2003 Havoc Pennington <hp@redhat.com> 1:1.2.0-1
@@ -453,7 +454,7 @@ _ delete unused patches
 * Mon Jul 16 2001 Jonathan Blandford <jrb@redhat.com>
 - backport sheet corruption fix
 
-* Tue Jul 10 2001 Trond Eivind Glomsrød <teg@redhat.com>
+* Tue Jul 10 2001 Trond Eivind GlomsrÃ¸d <teg@redhat.com>
 - Make devel subpackage depend on main package
 
 * Sat Jul 07 2001 Owen Taylor <otaylor@redhat.com>
