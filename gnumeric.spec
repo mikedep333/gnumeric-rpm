@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 License:          GPL
@@ -10,6 +10,7 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{ve
 Patch0:           gnumeric-1.6.1-desktop.patch
 Patch1:           gnumeric-1.4.1-excelcrash.patch
 Patch2:           gnumeric-1.6.3-helppath.patch
+Patch3:           gnumeric-1.6.3-gda3.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    desktop-file-utils >= 0.9
 BuildRequires:    libgnomeui-devel >= 2.4.0
@@ -18,7 +19,7 @@ BuildRequires:    python-devel
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
 BuildRequires:    automake autoconf libtool
 BuildRequires:    intltool scrollkeeper gettext
-BuildRequires:    libgnomedb-devel >= 1.0.4
+BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
 BuildRequires:    goffice-devel >= 0.2.0
 BuildRequires:    guile-devel
@@ -49,6 +50,7 @@ develop gnumeric-based applications.
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .excelcrash
 %patch2 -p1 -b .helppath
+%patch3 -p1 -b .gda3
 chmod -x plugins/excel/rc4.?
 
 
@@ -71,9 +73,7 @@ unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --vendor fedora --delete-original                  \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
-  --add-category X-Fedora                                               \
   --add-category Office                                                 \
-  --add-category Application                                            \
   --add-category Spreadsheet                                            \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
@@ -83,22 +83,22 @@ mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-%{name}.png \
   $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/%{name}.png
 
 #remove unused mime type icons
-rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnome-application-*.png
-rm -rf $RPM_BUILD_ROOT/%{_datadir}/pixmaps/%{name}-gnome-application-*.png
+rm $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnome-application-*.png
+rm $RPM_BUILD_ROOT/%{_datadir}/pixmaps/%{name}/gnome-application-*.png
 
 #remove spurious .ico thing
-rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/win32-%{name}.ico
-rm -rf $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
+rm $RPM_BUILD_ROOT/usr/share/pixmaps/win32-%{name}.ico
+rm $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
 
 #remove scrollkeeper stuff
 rm -rf $RPM_BUILD_ROOT/var
 
 #remove .la files
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
+rm $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
+rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
 
 #remove bogus mc stuff
-rm -rf $RPM_BUILD_ROOT/%{_datadir}/mc
+rm -r $RPM_BUILD_ROOT/%{_datadir}/mc
 
 
 %clean
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Sun May 27 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-7
+- Build against new libgda + libgnomedb
+
 * Mon Feb 19 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-6
 - Change BuildRequires: libgsf-devel to libgsf-gnome-devel to fix rawhide build
 
