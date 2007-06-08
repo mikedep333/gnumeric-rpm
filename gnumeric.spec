@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 License:          GPL
@@ -23,7 +23,7 @@ BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
 BuildRequires:    goffice-devel >= 0.2.0
 BuildRequires:    guile-devel
-Requires:         scrollkeeper hicolor-icon-theme
+Requires:         scrollkeeper hicolor-icon-theme yelp
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
 Requires(preun):  GConf2
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Fri Jun  8 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-8
+- Add yelp Requires so that the help will always work (bz 243361)
+
 * Sun May 27 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-7
 - Build against new libgda + libgnomedb
 
