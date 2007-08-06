@@ -1,10 +1,10 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
-License:          GPL
+License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar.bz2
 Patch0:           gnumeric-1.6.1-desktop.patch
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Mon Aug  6 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-10
+- Update License tag for new Licensing Guidelines compliance
+
 * Sun Jun 10 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-9
 - Remove yelp Requires again <sigh> (bz 243361)
 
