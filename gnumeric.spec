@@ -4,6 +4,8 @@ Version:          1.6.3
 Release:          10%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
+# bug filed upstream about this being GPL v2 only:
+# http://bugzilla.gnome.org/show_bug.cgi?id=463247
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar.bz2
