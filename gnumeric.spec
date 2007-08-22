@@ -14,17 +14,14 @@ Patch1:           gnumeric-1.4.1-excelcrash.patch
 Patch2:           gnumeric-1.6.3-helppath.patch
 Patch3:           gnumeric-1.6.3-gda3.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
-BuildRequires:    desktop-file-utils >= 0.9
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
-BuildRequires:    python-devel
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
-BuildRequires:    automake autoconf libtool
-BuildRequires:    intltool scrollkeeper gettext
 BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
 BuildRequires:    goffice-devel >= 0.2.0
-BuildRequires:    guile-devel
+BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
+BuildRequires:    gettext desktop-file-utils
 Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
@@ -57,10 +54,8 @@ chmod -x plugins/excel/rc4.?
 
 
 %build
-libtoolize --force --copy && aclocal && autoconf
-export mllibname=%{_lib}
 %configure --without-gb --enable-ssindex
-OLD_PO_FILE_INPUT=yes make
+make %{?_smp_mflags}
 
 
 %install
@@ -172,6 +167,8 @@ fi
 %changelog
 * Mon Aug  6 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-10
 - Update License tag for new Licensing Guidelines compliance
+- Don't regenerate all the autoxxx stuff (not needed) this fixes building with
+  the latest intltool
 
 * Sun Jun 10 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-9
 - Remove yelp Requires again <sigh> (bz 243361)
