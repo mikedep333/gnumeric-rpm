@@ -1,14 +1,14 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.2/%{name}-%{version}.tar.bz2
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.6/%{name}-%{version}.tar.bz2
 Patch0:           gnumeric-1.6.1-desktop.patch
 Patch1:           gnumeric-1.4.1-excelcrash.patch
 Patch2:           gnumeric-1.6.3-helppath.patch
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Fri Aug 31 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-11
+- Fix Source0 URL
+
 * Mon Aug  6 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-10
 - Update License tag for new Licensing Guidelines compliance
 - Don't regenerate all the autoxxx stuff (not needed) this fixes building with
