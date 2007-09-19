@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -13,6 +13,7 @@ Patch0:           gnumeric-1.6.1-desktop.patch
 Patch1:           gnumeric-1.4.1-excelcrash.patch
 Patch2:           gnumeric-1.6.3-helppath.patch
 Patch3:           gnumeric-1.6.3-gda3.patch
+Patch4:           gnumeric-1.6.3-gpl-md5.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
@@ -50,6 +51,7 @@ develop gnumeric-based applications.
 %patch1 -p1 -b .excelcrash
 %patch2 -p1 -b .helppath
 %patch3 -p1 -b .gda3
+%patch4 -p1 -b .gpl-md5
 chmod -x plugins/excel/rc4.?
 
 
@@ -158,7 +160,8 @@ fi
 %exclude %{_datadir}/%{name}/%{version}/idl
 %{_datadir}/mime-info
 %{_datadir}/applications/fedora-%{name}.desktop
-%{_datadir}/omf/%{name}
+# The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
+%dir %{_datadir}/omf/%{name}
 %{_mandir}/man1/*
 
 %files devel
@@ -168,6 +171,10 @@ fi
 
 
 %changelog
+* Wed Sep 19 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-12
+- Replace GPL incompatible licensed md5 code with GPL compatible code from
+  gnulib
+
 * Fri Aug 31 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-11
 - Fix Source0 URL
 
