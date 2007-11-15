@@ -1,0 +1,10 @@
+--- trunk/src/stf-parse.c	2006/05/25 16:09:39	14862
++++ trunk/src/stf-parse.c	2006/06/21 00:39:23	14888
+@@ -1400,6 +1400,7 @@
+ 		if (count_character (lines, (c = sepchar), 0.5) > 0 ||
+ 		    count_character (lines, (c = format_get_col_sep ()), 0.5) > 0 ||
+ 		    count_character (lines, (c = ':'), 0.5) > 0 ||
++		    count_character (lines, (c = ','), 0.5) > 0 ||
+ 		    count_character (lines, (c = ';'), 0.5) > 0 ||
+ 		    count_character (lines, (c = '|'), 0.5) > 0 ||
+ 		    count_character (lines, (c = '!'), 0.5) > 0 ||

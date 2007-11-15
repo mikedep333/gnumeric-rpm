@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.6.3
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -14,6 +14,7 @@ Patch1:           gnumeric-1.4.1-excelcrash.patch
 Patch2:           gnumeric-1.6.3-helppath.patch
 Patch3:           gnumeric-1.6.3-gda3.patch
 Patch4:           gnumeric-1.6.3-gpl-md5.patch
+Patch5:           gnumeric-1.6.3-stf-parse.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
@@ -52,6 +53,7 @@ develop gnumeric-based applications.
 %patch2 -p1 -b .helppath
 %patch3 -p1 -b .gda3
 %patch4 -p1 -b .gpl-md5
+%patch5 -p1 -b .csv
 chmod -x plugins/excel/rc4.?
 
 
@@ -171,6 +173,9 @@ fi
 
 
 %changelog
+* Thu Nov 15 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-13
+- Fix opening of csv files in non-English locales (bz 385441)
+
 * Wed Sep 19 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-12
 - Replace GPL incompatible licensed md5 code with GPL compatible code from
   gnulib
