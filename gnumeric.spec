@@ -1,27 +1,22 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.6.3
-Release:          13%{?dist}
+Version:          1.8.1
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.6/%{name}-%{version}.tar.bz2
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
 Patch0:           gnumeric-1.6.1-desktop.patch
-Patch1:           gnumeric-1.4.1-excelcrash.patch
-Patch2:           gnumeric-1.6.3-helppath.patch
-Patch3:           gnumeric-1.6.3-gda3.patch
-Patch4:           gnumeric-1.6.3-gpl-md5.patch
-Patch5:           gnumeric-1.6.3-stf-parse.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
 BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
-BuildRequires:    goffice-devel >= 0.2.0
+# BuildRequires:    goffice-devel >= 0.2.0
 BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
 BuildRequires:    gettext desktop-file-utils
 Requires:         scrollkeeper hicolor-icon-theme
@@ -49,12 +44,6 @@ develop gnumeric-based applications.
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
-%patch1 -p1 -b .excelcrash
-%patch2 -p1 -b .helppath
-%patch3 -p1 -b .gda3
-%patch4 -p1 -b .gpl-md5
-%patch5 -p1 -b .csv
-chmod -x plugins/excel/rc4.?
 
 
 %build
@@ -173,6 +162,9 @@ fi
 
 
 %changelog
+* Fri Jan 25 2008 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.8.1-1
+- New upstream release 1.8.1
+
 * Thu Nov 15 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-13
 - Fix opening of csv files in non-English locales (bz 385441)
 
