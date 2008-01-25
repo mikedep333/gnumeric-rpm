@@ -10,15 +10,16 @@ License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
 Patch0:           gnumeric-1.6.1-desktop.patch
+Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
 BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
-# BuildRequires:    goffice-devel >= 0.2.0
+BuildRequires:    goffice-devel >= 0.6.1
 BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
-BuildRequires:    gettext desktop-file-utils
+BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed)
 Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
@@ -34,6 +35,7 @@ environment.
 Summary: Files necessary to develop gnumeric-based applications
 Group: Development/Libraries
 Requires: %{name} = %{epoch}:%{version}-%{release}
+Requires: pkgconfig
 
 %description devel
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -41,13 +43,28 @@ environment. The gnumeric-devel package includes files necessary to
 develop gnumeric-based applications.
 
 
+%package plugins-extras
+Summary:          Files necessary to develop gnumeric-based applications
+Group:            Applications/Productivity
+Requires:         %{name} = %{epoch}:%{version}-%{release}
+
+%description plugins-extras
+This package contains the following additional plugins for gnumeric:
+* gda and gnomedb plugins:
+  Database functions for retrieval of data from a database.
+* perl plugin:
+  This plugin allows writing of plugins in perl
+
+
 %prep
 %setup -q
 %patch0 -p1 -b .desktop
+%patch1 -p1
+chmod -x plugins/excel/rc4.?
 
 
 %build
-%configure --without-gb --enable-ssindex
+%configure --enable-ssindex
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -89,9 +106,6 @@ rm -rf $RPM_BUILD_ROOT/var
 #remove .la files
 rm $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
 rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
-
-#remove bogus mc stuff
-rm -r $RPM_BUILD_ROOT/%{_datadir}/mc
 
 
 %clean
@@ -143,13 +157,15 @@ fi
 %{_libdir}/libspreadsheet-%{version}.so
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/%{version}
-%{_libdir}/bonobo/servers/GNOME_Gnumeric.server
+%exclude %{_libdir}/%{name}/%{version}/include
+%exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
+%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
+%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/%{version}
 %exclude %{_datadir}/%{name}/%{version}/idl
-%{_datadir}/mime-info
 %{_datadir}/applications/fedora-%{name}.desktop
 # The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
 %dir %{_datadir}/omf/%{name}
@@ -159,11 +175,21 @@ fi
 %defattr(-,root,root)
 %{_datadir}/%{name}/%{version}/idl
 %{_libdir}/libspreadsheet.so
+%{_libdir}/pkgconfig/libspreadsheet-1.8.pc
+%{_includedir}/libspreadsheet-1.8
+%{_libdir}/%{name}/%{version}/include
+
+%files plugins-extras
+%defattr(-,root,root,-)
+%{_libdir}/%{name}/%{version}/plugins/perl-*
+%{_libdir}/%{name}/%{version}/plugins/gdaif
+%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
 
 %changelog
 * Fri Jan 25 2008 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.8.1-1
 - New upstream release 1.8.1
+- Split of perl and libgda/libgnomedb plugins into gnumeric-plugins-extras
 
 * Thu Nov 15 2007 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.6.3-13
 - Fix opening of csv files in non-English locales (bz 385441)
