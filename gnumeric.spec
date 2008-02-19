@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -187,6 +187,9 @@ fi
 
 
 %changelog
+* Tue Feb 19 2008 Fedora Release Engineering <rel-eng@fedoraproject.org> - 1:1.8.1-2
+- Autorebuild for GCC 4.3
+
 * Fri Jan 25 2008 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.8.1-1
 - New upstream release 1.8.1
 - Split of perl and libgda/libgnomedb plugins into gnumeric-plugins-extras
