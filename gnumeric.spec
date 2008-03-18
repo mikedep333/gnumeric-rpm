@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -47,6 +47,7 @@ develop gnumeric-based applications.
 Summary:          Files necessary to develop gnumeric-based applications
 Group:            Applications/Productivity
 Requires:         %{name} = %{epoch}:%{version}-%{release}
+Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description plugins-extras
 This package contains the following additional plugins for gnumeric:
@@ -187,6 +188,9 @@ fi
 
 
 %changelog
+* Tue Mar 18 2008 Tom "spot" Callaway <tcallawa@redhat.com> 1:1.8.2-2
+- add Requires for versioned perl (libperl.so)
+
 * Sat Mar  8 2008 Hans de Goede <j.w.r.degoede@hhs.nl> 1:1.8.2-1
 - New upstream release 1.8.2
 
