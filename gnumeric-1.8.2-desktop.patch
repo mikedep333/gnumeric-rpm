@@ -1,0 +1,11 @@
+--- gnumeric-1.8.2/gnumeric.desktop.in.desktop	2008-01-15 05:25:35.000000000 +0530
++++ gnumeric-1.8.2/gnumeric.desktop.in	2008-11-17 09:23:01.000000000 +0530
+@@ -4,7 +4,7 @@
+ _GenericName=Spreadsheet
+ _Comment=Calculation, Analysis, and Visualization of Information
+ Exec=gnumeric %F_OR_U
+-Icon=gnome-gnumeric.png
++Icon=gnumeric.png
+ Terminal=false
+ Type=Application
+ Categories=Application;Office;Spreadsheet;Science;Math;GNOME;GTK;
