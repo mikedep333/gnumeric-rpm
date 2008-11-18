@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.2
-Release:          2%{?dist}
+Release:          4%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -9,7 +9,7 @@ Group:            Applications/Productivity
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
-Patch0:           gnumeric-1.6.1-desktop.patch
+Patch0:           gnumeric-1.8.2-desktop.patch
 Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
@@ -188,6 +188,12 @@ fi
 
 
 %changelog
+* Mon Nov 17 2008 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.2-4
+- Version bump
+
+* Mon Nov 17 2008 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.2-3
+- Changed the desktop patch
+
 * Tue Mar 18 2008 Tom "spot" Callaway <tcallawa@redhat.com> 1:1.8.2-2
 - add Requires for versioned perl (libperl.so)
 
