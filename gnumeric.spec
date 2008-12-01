@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.2
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -188,6 +188,9 @@ fi
 
 
 %changelog
+* Sun Nov 30 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 1:1.8.2-5
+- Rebuild for Python 2.6
+
 * Mon Nov 17 2008 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.2-4
 - Version bump
 
