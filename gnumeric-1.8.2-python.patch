@@ -1,0 +1,10 @@
+--- gnumeric-1.8.2/plugins/python-loader/gnm-py-interpreter.c	2008-01-18 21:28:20.000000000 +0100
++++ gnumeric-1.8.2/plugins/python-loader/gnm-py-interpreter.c.new	2009-01-28 22:58:40.000000000 +0100
+@@ -101,6 +101,7 @@
+ 	interpreter->plugin = plugin;
+ 
+ 	PySys_SetArgv (G_N_ELEMENTS (plugin_argv) - 1, plugin_argv);
++	PyRun_SimpleString("import sys; sys.path = filter(None, sys.path)");
+ 	py_initgnumeric (interpreter);
+ 
+ 	return interpreter;
