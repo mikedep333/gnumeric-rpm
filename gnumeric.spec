@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.2
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -191,6 +191,9 @@ fi
 
 
 %changelog
+* Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
+
 * Mon Feb 16 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.2-6
 - Disable gdaif and gnome-db plugins
 - Resolves CVE-2009-5983
