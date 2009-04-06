@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.8.2
-Release:          7%{?dist}
+Version:          1.8.4
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -9,7 +9,6 @@ Group:            Applications/Productivity
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
-Patch0:           gnumeric-1.8.2-desktop.patch
 Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
 Patch2:		  gnumeric-1.8.2-python.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
@@ -20,7 +19,7 @@ BuildRequires:    libgsf-gnome-devel >= 1.13.2
 BuildRequires:    pygtk2-devel >= 2.6.0
 BuildRequires:    goffice-devel >= 0.6.1
 BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
-BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed)
+BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
 Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
 Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
@@ -60,7 +59,6 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
-%patch0 -p1 -b .desktop
 %patch1 -p1
 %patch2 -p1 -b .new
 
@@ -191,6 +189,9 @@ fi
 
 
 %changelog
+* Tue Apr 07 2009 Robert Scheck <robert@fedoraproject.org> 1:1.8.4-1
+- Upgrade to 1.8.4 (#491769)
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
