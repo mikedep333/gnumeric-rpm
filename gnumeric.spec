@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.4
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -12,6 +12,7 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{ve
 Patch0:		  gnumeric-1.8.4-desktop.patch
 Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
 Patch2:		  gnumeric-1.8.2-python.patch
+Patch3:		  gnumeric-1.8.4-recent.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
@@ -63,6 +64,7 @@ This package contains the following additional plugins for gnumeric:
 %patch0 -p1 -b .desktop
 %patch1 -p1
 %patch2 -p1 -b .new
+%patch3 -p1
 
 chmod -x plugins/excel/rc4.?
 
@@ -191,6 +193,9 @@ fi
 
 
 %changelog
+* Mon Oct 12 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.4-4
+- Resolve rhbz #500890
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.8.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
