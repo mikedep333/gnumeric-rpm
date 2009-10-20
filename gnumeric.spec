@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.8.4
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -12,7 +12,10 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{ve
 Patch0:		  gnumeric-1.8.4-desktop.patch
 Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
 Patch2:		  gnumeric-1.8.2-python.patch
-Patch3:		  gnumeric-1.8.4-recent.patch
+Patch3:		  gnumeric-1.8.4-backport-20090129.patch
+Patch4:		  gnumeric-1.8.4-backport-20090309.patch
+Patch5:		  gnumeric-1.8.4-backport-20090314.patch
+Patch6:		  gnumeric-1.8.4-backport-20090430.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
@@ -64,7 +67,10 @@ This package contains the following additional plugins for gnumeric:
 %patch0 -p1 -b .desktop
 %patch1 -p1
 %patch2 -p1 -b .new
-%patch3 -p1
+%patch3 -p1 -b backport-20090129
+%patch4 -p1 -b backport-20090309
+%patch5 -p1 -b backport-20090314
+%patch6 -p1 -b backport-20090430
 
 chmod -x plugins/excel/rc4.?
 
@@ -193,6 +199,9 @@ fi
 
 
 %changelog
+* Wed Oct 21 2009 Robert Scheck <robert@fedoraproject.org> 1:1.8.4-5
+- Applied 4 patches from the 1.8 stable branch (#500890, #505001)
+
 * Mon Oct 12 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.8.4-4
 - Resolve rhbz #500890
 
