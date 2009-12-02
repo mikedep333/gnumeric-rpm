@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.8.4
-Release:          5%{?dist}
+Version:          1.9.16
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -9,20 +9,13 @@ Group:            Applications/Productivity
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
-Patch0:		  gnumeric-1.8.4-desktop.patch
-Patch1:           gnumeric-1.8.1-gnomedb-vercheck.patch
-Patch2:		  gnumeric-1.8.2-python.patch
-Patch3:		  gnumeric-1.8.4-backport-20090129.patch
-Patch4:		  gnumeric-1.8.4-backport-20090309.patch
-Patch5:		  gnumeric-1.8.4-backport-20090314.patch
-Patch6:		  gnumeric-1.8.4-backport-20090430.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
-BuildRequires:    goffice-devel >= 0.6.1
+BuildRequires:    goffice-devel >= 0.7
 BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
 BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
 Requires:         scrollkeeper hicolor-icon-theme
@@ -64,13 +57,6 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
-%patch0 -p1 -b .desktop
-%patch1 -p1
-%patch2 -p1 -b .new
-%patch3 -p1 -b backport-20090129
-%patch4 -p1 -b backport-20090309
-%patch5 -p1 -b backport-20090314
-%patch6 -p1 -b backport-20090430
 
 chmod -x plugins/excel/rc4.?
 
@@ -101,7 +87,7 @@ desktop-file-install --vendor fedora --delete-original                  \
 
 #put icon in the proper place
 mkdir -p $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps
-mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-%{name}.png \
+mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-application-x-gnumeric.png \
   $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/%{name}.png
 
 #remove unused mime type icons
@@ -116,8 +102,9 @@ rm $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
 rm -rf $RPM_BUILD_ROOT/var
 
 #remove .la files
-rm $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
-rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
+#rm $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
+#rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %clean
@@ -169,15 +156,18 @@ fi
 %{_libdir}/libspreadsheet-%{version}.so
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/%{version}
-%exclude %{_libdir}/%{name}/%{version}/include
 %exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
 %{_datadir}/pixmaps/%{name}
+%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
+%{_datadir}/icons/hicolor/22x22/apps/%{name}.png
+%{_datadir}/icons/hicolor/24x24/apps/%{name}.png
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
+%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/%{version}
-%exclude %{_datadir}/%{name}/%{version}/idl
 %{_datadir}/applications/fedora-%{name}.desktop
 # The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
 %dir %{_datadir}/omf/%{name}
@@ -185,20 +175,23 @@ fi
 
 %files devel
 %defattr(-,root,root)
-%{_datadir}/%{name}/%{version}/idl
 %{_libdir}/libspreadsheet.so
-%{_libdir}/pkgconfig/libspreadsheet-1.8.pc
-%{_includedir}/libspreadsheet-1.8
-%{_libdir}/%{name}/%{version}/include
+%{_libdir}/pkgconfig/libspreadsheet-1.10.pc
+%{_includedir}/libspreadsheet-1.10
 
 %files plugins-extras
 %defattr(-,root,root,-)
 %{_libdir}/%{name}/%{version}/plugins/perl-*
+%{_libdir}/goffice/0.7.16/plugins/gnumeric/gnumeric.so
+%{_libdir}/goffice/0.7.16/plugins/gnumeric/plugin.xml
 #%{_libdir}/%{name}/%{version}/plugins/gdaif
 #%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
 
 %changelog
+* Mon Nov 30 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.16-1
+- New upstream
+
 * Wed Oct 21 2009 Robert Scheck <robert@fedoraproject.org> 1:1.8.4-5
 - Applied 4 patches from the 1.8 stable branch (#500890, #505001)
 
