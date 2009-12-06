@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.9.16
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Fri Dec  4 2009 Stepan Kasal <skasal@redhat.com> - 1:1.9.16-2
+- rebuild against perl 5.10.1
+
 * Mon Nov 30 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.16-1
 - New upstream
 
