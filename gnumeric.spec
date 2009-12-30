@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.9.17
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -191,7 +191,7 @@ fi
 
 
 %changelog
-* Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-1
+* Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-2
 - Upstream bump to 1.9.17
 - Apply gnome bz patch #605043
 - BR goffice-devel >= 1.7.17
