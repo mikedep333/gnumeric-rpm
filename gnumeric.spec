@@ -9,13 +9,14 @@ Group:            Applications/Productivity
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.8/%{name}-%{version}.tar.bz2
+Patch0:           gnumeric-gbz-605043.patch
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
 BuildRequires:    libgsf-gnome-devel >= 1.13.2
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    pygtk2-devel >= 2.6.0
-BuildRequires:    goffice-devel >= 0.7
+BuildRequires:    goffice-devel >= 0.7.17
 BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
 BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
 Requires:         scrollkeeper hicolor-icon-theme
@@ -57,6 +58,7 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
+%patch0 -p1
 
 chmod -x plugins/excel/rc4.?
 
@@ -191,6 +193,8 @@ fi
 %changelog
 * Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-1
 - Upstream bump to 1.9.17
+- Apply gnome bz patch #605043
+- BR goffice-devel >= 1.7.17
 
 * Fri Dec  4 2009 Stepan Kasal <skasal@redhat.com> - 1:1.9.16-2
 - rebuild against perl 5.10.1
