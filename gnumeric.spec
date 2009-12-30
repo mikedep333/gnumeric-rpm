@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.9.17
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -184,17 +184,18 @@ fi
 %files plugins-extras
 %defattr(-,root,root,-)
 %{_libdir}/%{name}/%{version}/plugins/perl-*
-%{_libdir}/goffice/0.7.16/plugins/gnumeric/gnumeric.so
-%{_libdir}/goffice/0.7.16/plugins/gnumeric/plugin.xml
+%{_libdir}/goffice/0.7.17/plugins/gnumeric/gnumeric.so
+%{_libdir}/goffice/0.7.17/plugins/gnumeric/plugin.xml
 #%{_libdir}/%{name}/%{version}/plugins/gdaif
 #%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
 
 %changelog
-* Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-2
+* Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-3
 - Upstream bump to 1.9.17
 - Apply gnome bz patch #605043
 - BR goffice-devel >= 1.7.17
+- Change goffice plugins to 0.7.17
 
 * Fri Dec  4 2009 Stepan Kasal <skasal@redhat.com> - 1:1.9.16-2
 - rebuild against perl 5.10.1
