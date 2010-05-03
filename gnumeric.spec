@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.0
+Version:          1.10.2
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Mon May 3 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10-2-1
+- New 1.10.2 upstream
+
 * Mon Feb 22 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.0-1
 - New upstream
 
