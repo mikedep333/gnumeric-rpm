@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -182,13 +182,16 @@ fi
 %files plugins-extras
 %defattr(-,root,root,-)
 %{_libdir}/%{name}/%{version}/plugins/perl-*
-%{_libdir}/goffice/0.8.0/plugins/gnumeric/gnumeric.so
-%{_libdir}/goffice/0.8.0/plugins/gnumeric/plugin.xml
+%{_libdir}/goffice/*/plugins/gnumeric/gnumeric.so
+%{_libdir}/goffice/*/plugins/gnumeric/plugin.xml
 #%{_libdir}/%{name}/%{version}/plugins/gdaif
 #%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
 
 %changelog
+* Mon Jul 05 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.2-3
+- Fix FTBS
+
 * Tue Jun 01 2010 Marcela Maslanova <mmaslano@redhat.com> - 1:1.10.2-2
 - Mass rebuild with perl-5.12.0
 
