@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.2
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Sun Jul 25 2010 Adel Gadllah <adel.gadllah@gmail.com> 1:1.10.2-4
+- Rebuild for new goffice
+
 * Mon Jul 05 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.2-3
 - Fix FTBS
 
