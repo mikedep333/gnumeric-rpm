@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.2
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Fri Jul 30 2010 Kevin Fenzi <kevin@tummy.com> - 1:1.10.2-5
+- Rebuild for python 2.7
+
 * Sun Jul 25 2010 Adel Gadllah <adel.gadllah@gmail.com> 1:1.10.2-4
 - Rebuild for new goffice
 
