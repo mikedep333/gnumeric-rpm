@@ -182,8 +182,8 @@ fi
 %files plugins-extras
 %defattr(-,root,root,-)
 %{_libdir}/%{name}/%{version}/plugins/perl-*
-%{_libdir}/goffice/0.8.0/plugins/gnumeric/gnumeric.so
-%{_libdir}/goffice/0.8.0/plugins/gnumeric/plugin.xml
+%{_libdir}/goffice/*/plugins/gnumeric/gnumeric.so
+%{_libdir}/goffice/*/plugins/gnumeric/plugin.xml
 #%{_libdir}/%{name}/%{version}/plugins/gdaif
 #%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
@@ -191,6 +191,7 @@ fi
 %changelog
 * Thu Aug 05 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.0-2
 - Rebuilt for goffice 0.8.8
+- Switched to wildcards for goffice plugin path
 
 * Mon Feb 22 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.0-1
 - New upstream
