@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.0
-Release:          2%{?dist}
+Version:          1.10.8
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -20,9 +20,9 @@ BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
 BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
 Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
-Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
+Requires(post):   /sbin/ldconfig GConf2
 Requires(preun):  GConf2
-Requires(postun): /sbin/ldconfig scrollkeeper
+Requires(postun): /sbin/ldconfig
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -112,40 +112,29 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %pre
-if [ "$1" -gt 1 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
-fi
+%gconf_schema_prepare %{name}-dialogs %{name}-general %{name}-plugins
 
 
 %post
 /sbin/ldconfig
-export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-/usr/bin/gconftool-2 --makefile-install-rule \
-  %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
-scrollkeeper-update -q -o %{_datadir}/omf/%{name} || :
-touch --no-create %{_datadir}/icons/hicolor || :
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
-fi
+%gconf_schema_upgrade %{name}-dialogs %{name}-general %{name}-plugins
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %preun
-if [ "$1" -eq 0 ]; then
-    export GCONF_CONFIG_SOURCE=`gconftool-2 --get-default-source`
-    gconftool-2 --makefile-uninstall-rule \
-      %{_sysconfdir}/gconf/schemas/%{name}*.schemas > /dev/null || :
-fi
+%gconf_schema_remove %{name}-dialogs %{name}-general %{name}-plugins
 
 
 %postun
 /sbin/ldconfig
-scrollkeeper-update -q || :
-touch --no-create %{_datadir}/icons/hicolor || :
-if [ -x %{_bindir}/gtk-update-icon-cache ]; then
-   %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+
+
+%posttrans
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
@@ -189,6 +178,11 @@ fi
 
 
 %changelog
+* Sat Aug 07 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.8-1
+- Updated to 1.10.8
+- Dropped scrollkeeper scriptlets since they are no longer needed
+- Updated icon cache and gconf scriptlets to the latest spec
+
 * Thu Aug 05 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.0-2
 - Rebuilt for goffice 0.8.8
 - Switched to wildcards for goffice plugin path
