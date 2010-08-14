@@ -20,9 +20,9 @@ BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
 BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
 Requires:         scrollkeeper hicolor-icon-theme
 Requires(pre):    GConf2
-Requires(post):   /sbin/ldconfig GConf2 scrollkeeper
+Requires(post):   /sbin/ldconfig GConf2
 Requires(preun):  GConf2
-Requires(postun): /sbin/ldconfig scrollkeeper
+Requires(postun): /sbin/ldconfig
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
