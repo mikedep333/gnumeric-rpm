@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.8
+Version:          1.10.9
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Tue Aug 17 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1.10.9-1
+- Updated to 1.10.9
+
 * Sat Aug 07 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.8-1
 - Updated to 1.10.8
 - Dropped scrollkeeper scriptlets since they are no longer needed
