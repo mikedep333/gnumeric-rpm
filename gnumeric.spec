@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.9
+Version:          1.10.10
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
@@ -178,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Mon Sep 06 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1.10.10-1
+- Updated to 1.10.10
+
 * Tue Aug 17 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1.10.9-1
 - Updated to 1.10.9
 
