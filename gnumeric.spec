@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.10
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -84,11 +84,6 @@ desktop-file-install --vendor fedora --delete-original                  \
   --add-category Office                                                 \
   --add-category Spreadsheet                                            \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
-
-#put icon in the proper place
-mkdir -p $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps
-mv $RPM_BUILD_ROOT/usr/share/pixmaps/gnome-application-x-gnumeric.png \
-  $RPM_BUILD_ROOT/usr/share/icons/hicolor/48x48/apps/%{name}.png
 
 #remove unused mime type icons
 rm $RPM_BUILD_ROOT/%{_datadir}/pixmaps/gnome-application-*.png
@@ -178,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Thu Sep 16 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.10-2
+- Don't overwrite a good icon with an ancient one (RH #634582)
+
 * Mon Sep 06 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1.10.10-1
 - Updated to 1.10.10
 
