@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.10
-Release:          2%{?dist}
+Release:          2%{?dist}.1
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Wed Sep 29 2010 jkeating - 1:1.10.10-2.1
+- Rebuilt for gcc bug 634757
+
 * Thu Sep 16 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.10-2
 - Don't overwrite a good icon with an ancient one (RH #634582)
 
