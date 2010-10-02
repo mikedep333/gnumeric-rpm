@@ -190,23 +190,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 - Dropped scrollkeeper scriptlets since they are no longer needed
 - Updated icon cache and gconf scriptlets to the latest spec
 
-* Mon Aug 02 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.2-6
+* Thu Aug 05 2010 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.0-2
 - Rebuilt for goffice 0.8.8
-
-* Fri Jul 30 2010 Kevin Fenzi <kevin@tummy.com> - 1:1.10.2-5
-- Rebuild for python 2.7
-
-* Sun Jul 25 2010 Adel Gadllah <adel.gadllah@gmail.com> 1:1.10.2-4
-- Rebuild for new goffice
-
-* Mon Jul 05 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.2-3
-- Fix FTBS
-
-* Tue Jun 01 2010 Marcela Maslanova <mmaslano@redhat.com> - 1:1.10.2-2
-- Mass rebuild with perl-5.12.0
-
-* Mon May 3 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10-2-1
-- New 1.10.2 upstream
+- Switched to wildcards for goffice plugin path
 
 * Mon Feb 22 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.0-1
 - New upstream
