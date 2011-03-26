@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.13
-Release:          2%{?dist}
+Version:          1.10.14
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -173,6 +173,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Mar 26 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-1
+- Updated to 1.10.14
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.10.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
