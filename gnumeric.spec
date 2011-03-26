@@ -143,6 +143,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
+%{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
 %{_datadir}/icons/hicolor/22x22/apps/%{name}.png
@@ -175,6 +176,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Sat Mar 26 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-1
 - Updated to 1.10.14
+- Added GSettings schemas to %%files
 
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.10.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
