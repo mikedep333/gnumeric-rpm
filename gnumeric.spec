@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.14
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -114,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 %gconf_schema_upgrade %{name}-dialogs %{name}-general %{name}-plugins
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+if [ $1 -eq 1 ] ; then
+    glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+fi
 
 
 %preun
@@ -126,6 +129,7 @@ if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %posttrans
@@ -174,6 +178,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sun Mar 27 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-2
+- Added missing GSettings scriptlets
+
 * Sat Mar 26 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-1
 - Updated to 1.10.14
 - Added GSettings schemas to %%files
