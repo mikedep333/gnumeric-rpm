@@ -114,9 +114,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/ldconfig
 %gconf_schema_upgrade %{name}-dialogs %{name}-general %{name}-plugins
 touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+%if 0%{?fedora} >= 14
 if [ $1 -eq 1 ] ; then
     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 fi
+%endif
 
 
 %preun
@@ -129,7 +131,9 @@ if [ $1 -eq 0 ] ; then
     touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 fi
+%if 0%{?fedora} >= 14
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
+%endif
 
 
 %posttrans
@@ -147,7 +151,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
+%if 0%{?fedora} >= 14
 %{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
+%endif
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
 %{_datadir}/icons/hicolor/22x22/apps/%{name}.png
@@ -180,6 +186,7 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %changelog
 * Sun Mar 27 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-2
 - Added missing GSettings scriptlets
+- Only use GSettings on Fedora >= 14
 
 * Sat Mar 26 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.14-1
 - Updated to 1.10.14
