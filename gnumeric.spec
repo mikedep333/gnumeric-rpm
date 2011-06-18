@@ -1,15 +1,14 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.15
-Release:          2%{?dist}
+Version:          1.10.16
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
 License:          GPLv2
 URL:              http://www.gnome.org/gnumeric/
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.10/%{name}-%{version}.tar.bz2
-Patch0:           707965.patch
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.10/%{name}-%{version}.tar.xz
 BuildRoot:        %{_tmppath}/%{name}-%{version}-root
 BuildRequires:    libgnomeui-devel >= 2.4.0
 BuildRequires:    libgnomeprintui22-devel >= 2.8.2
@@ -58,7 +57,6 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
-%patch0 -p1 -b .707965
 
 chmod -x plugins/excel/rc4.?
 
@@ -186,6 +184,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Jun 18 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.16-1
+- Updated to 0.8.16
+- Switched to .xz sources
+- Dropped included patch
+
 * Thu May 26 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.15-2
 - Fix crasher (RH #707965)
 
