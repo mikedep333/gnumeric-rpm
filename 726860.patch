@@ -1,0 +1,25 @@
+From ddd96433413b73f7ec04a6d570f3fdcb7f53056b Mon Sep 17 00:00:00 2001
+From: Morten Welinder <terra@gnome.org>
+Date: Sat, 30 Jul 2011 10:06:33 +0000
+Subject: Parser: fix crash on ['
+
+---
+diff --git a/src/parser.y b/src/parser.y
+index d41d517..90b1ef7 100644
+--- a/src/parser.y
++++ b/src/parser.y
+@@ -1417,10 +1417,10 @@ yylex (void)
+ 			}
+ 		}
+ 
+-		while (g_unichar_isspace (g_utf8_get_char (p)))
++		while (p && g_unichar_isspace (g_utf8_get_char (p)))
+ 			p = g_utf8_next_char (p);
+ 
+-		if (s->len == 0 || p[0] != ']') {
++		if (s->len == 0 || !p || p[0] != ']') {
+ 			g_string_free (s, TRUE);
+ 			break;
+ 		}
+--
+cgit v0.9
