@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.10.17
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
@@ -184,6 +184,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 1:1.10.17-2
+- Rebuild for new libpng
+
 * Tue Aug 02 2011 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.10.17-1
 - Updated to 1.10.17
 - Dropped the included patch
