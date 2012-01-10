@@ -149,7 +149,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %changelog
 * Sat Jan 07 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.1-1
-- Updated to 0.9.1 and updated BuildRequires accordingly
+- Updated to 1.11.1 and updated BuildRequires accordingly
 - Dropped obsolete Group, Buildroot, %%clean and %%defattr
 - Updated the scriptlets to the latest spec
 - GConf2 is no more
