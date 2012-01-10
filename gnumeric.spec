@@ -1,27 +1,23 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.10.17
-Release:          2%{?dist}
+Version:          1.11.1
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
-Group:            Applications/Productivity
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
 License:          GPLv2
-URL:              http://www.gnome.org/gnumeric/
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.10/%{name}-%{version}.tar.xz
-BuildRoot:        %{_tmppath}/%{name}-%{version}-root
-BuildRequires:    libgnomeui-devel >= 2.4.0
-BuildRequires:    libgnomeprintui22-devel >= 2.8.2
-BuildRequires:    libgsf-gnome-devel >= 1.13.2
+URL:              http://projects.gnome.org/gnumeric/
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.11/%{name}-%{version}.tar.xz
 #BuildRequires:    libgnomedb-devel >= 3.0.0
-BuildRequires:    pygtk2-devel >= 2.6.0
-BuildRequires:    goffice-devel >= 0.8
-BuildRequires:    python-devel guile-devel perl(XML::Parser) scrollkeeper
-BuildRequires:    gettext desktop-file-utils perl(ExtUtils::Embed) intltool
-Requires:         scrollkeeper hicolor-icon-theme
-Requires(pre):    GConf2
-Requires(post):   /sbin/ldconfig GConf2
-Requires(preun):  GConf2
+BuildRequires:    desktop-file-utils
+BuildRequires:    goffice-devel >= 0.9.1
+BuildRequires:    intltool
+BuildRequires:    perl(ExtUtils::Embed)
+BuildRequires:    pygtk2-devel
+BuildRequires:    rarian-compat
+BuildRequires:    zlib-devel
+Requires:         hicolor-icon-theme
+Requires(post):   /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
 
 %description
@@ -30,10 +26,8 @@ environment.
 
 
 %package devel
-Summary: Files necessary to develop gnumeric-based applications
-Group: Development/Libraries
-Requires: %{name} = %{epoch}:%{version}-%{release}
-Requires: pkgconfig
+Summary:          Files necessary to develop gnumeric-based applications
+Requires:         %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -43,8 +37,7 @@ develop gnumeric-based applications.
 
 %package plugins-extras
 Summary:          Files necessary to develop gnumeric-based applications
-Group:            Applications/Productivity
-Requires:         %{name} = %{epoch}:%{version}-%{release}
+Requires:         %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description plugins-extras
@@ -71,12 +64,9 @@ make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=$RPM_BUILD_ROOT
 
-export GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL=1
-make DESTDIR=$RPM_BUILD_ROOT install
-unset GCONF_DISABLE_MAKEFILE_SCHEMA_INSTALL
-
-/usr/lib/rpm/find-lang.sh $RPM_BUILD_ROOT %{name} --all-name --with-gnome
+%find_lang %{name} --all-name --with-gnome
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --vendor fedora --delete-original                  \
@@ -93,57 +83,35 @@ rm $RPM_BUILD_ROOT/%{_datadir}/pixmaps/%{name}/gnome-application-*.png
 rm $RPM_BUILD_ROOT/usr/share/pixmaps/win32-%{name}.ico
 rm $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
 
-#remove scrollkeeper stuff
-rm -rf $RPM_BUILD_ROOT/var
-
 #remove .la files
-#rm $RPM_BUILD_ROOT/%{_libdir}/libspreadsheet.la
-#rm $RPM_BUILD_ROOT/%{_libdir}/%{name}/%{version}/plugins/*/*.la
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-
-%pre
-%gconf_schema_prepare %{name}-dialogs %{name}-general %{name}-plugins
 
 
 %post
 /sbin/ldconfig
-%gconf_schema_upgrade %{name}-dialogs %{name}-general %{name}-plugins
-touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-
-%preun
-%gconf_schema_remove %{name}-dialogs %{name}-general %{name}-plugins
+/usr/bin/update-desktop-database &> /dev/null || :
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %postun
 /sbin/ldconfig
 if [ $1 -eq 0 ] ; then
-    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-%if 0%{?fedora} >= 14
-if [ $1 -eq 0 ] ; then
      glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 fi
-%endif
+/usr/bin/update-desktop-database &> /dev/null || :
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi		
 
 
 %posttrans
-gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%if 0%{?fedora} >= 14
 glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-%endif
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc HACKING AUTHORS ChangeLog NEWS BUGS README COPYING
-%{_sysconfdir}/gconf/schemas/*.schemas
 %{_bindir}/*
 %{_libdir}/libspreadsheet-%{version}.so
 %dir %{_libdir}/%{name}
@@ -151,9 +119,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
-%if 0%{?fedora} >= 14
 %{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
-%endif
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
 %{_datadir}/icons/hicolor/22x22/apps/%{name}.png
@@ -169,13 +135,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_mandir}/man1/*
 
 %files devel
-%defattr(-,root,root)
 %{_libdir}/libspreadsheet.so
-%{_libdir}/pkgconfig/libspreadsheet-1.10.pc
-%{_includedir}/libspreadsheet-1.10
+%{_libdir}/pkgconfig/libspreadsheet-1.12.pc
+%{_includedir}/libspreadsheet-1.12
 
 %files plugins-extras
-%defattr(-,root,root,-)
 %{_libdir}/%{name}/%{version}/plugins/perl-*
 %{_libdir}/goffice/*/plugins/gnumeric/gnumeric.so
 %{_libdir}/goffice/*/plugins/gnumeric/plugin.xml
@@ -184,6 +148,12 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Jan 07 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.1-1
+- Updated to 0.9.1 and updated BuildRequires accordingly
+- Dropped obsolete Group, Buildroot, %%clean and %%defattr
+- Updated the scriptlets to the latest spec
+- GConf2 is no more
+
 * Tue Dec 06 2011 Adam Jackson <ajax@redhat.com> - 1:1.10.17-2
 - Rebuild for new libpng
 
