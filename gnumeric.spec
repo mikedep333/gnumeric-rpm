@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.11.1
+Version:          1.11.2
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 # bug filed upstream about this being GPL v2 only:
@@ -10,7 +10,7 @@ URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.11/%{name}-%{version}.tar.xz
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    desktop-file-utils
-BuildRequires:    goffice-devel >= 0.9.1
+BuildRequires:    goffice-devel >= 0.9.2
 BuildRequires:    intltool
 BuildRequires:    perl(ExtUtils::Embed)
 BuildRequires:    pygtk2-devel
@@ -148,6 +148,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue Mar 13 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.2-1
+- Updated to 1.11.2
+
 * Sat Jan 07 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.1-1
 - Updated to 1.11.1 and updated BuildRequires accordingly
 - Dropped obsolete Group, Buildroot, %%clean and %%defattr
