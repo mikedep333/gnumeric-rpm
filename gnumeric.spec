@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.11.3
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
@@ -73,6 +73,7 @@ desktop-file-install --vendor fedora --delete-original                  \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
   --add-category Office                                                 \
   --add-category Spreadsheet                                            \
+  --remove-category Science                                             \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 #remove unused mime type icons
@@ -102,7 +103,7 @@ fi
 if [ $1 -eq 0 ] ; then
     /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
     /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi		
+fi
 
 
 %posttrans
@@ -121,11 +122,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 #%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
 %{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
 %{_datadir}/pixmaps/%{name}
-%{_datadir}/icons/hicolor/16x16/apps/%{name}.png
-%{_datadir}/icons/hicolor/22x22/apps/%{name}.png
-%{_datadir}/icons/hicolor/24x24/apps/%{name}.png
-%{_datadir}/icons/hicolor/48x48/apps/%{name}.png
-%{_datadir}/icons/hicolor/32x32/apps/%{name}.png
+%{_datadir}/icons/hicolor/*/apps/%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/%{version}
@@ -148,6 +145,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue Jun 19 2012 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.11.3-3
+- Remove "Science" category from menu entry
+
 * Thu Jun 07 2012 Petr Pisar <ppisar@redhat.com> - 1:1.11.3-2
 - Perl 5.16 rebuild
 
