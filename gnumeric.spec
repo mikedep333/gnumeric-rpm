@@ -146,7 +146,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %changelog
 * Tue Jun 19 2012 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.11.3-3
-- Remove "Science" category from menu entry
+- Remove "Science" category from menu entry (#833321)
 
 * Thu Jun 07 2012 Petr Pisar <ppisar@redhat.com> - 1:1.11.3-2
 - Perl 5.16 rebuild
