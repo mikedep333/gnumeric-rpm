@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.11.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 # bug filed upstream about this being GPL v2 only:
 # http://bugzilla.gnome.org/show_bug.cgi?id=463247
@@ -145,6 +145,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Thu Jun 28 2012 Petr Pisar <ppisar@redhat.com> - 1:1.11.4-2
+- Perl 5.16 rebuild
+
 * Tue Jun 26 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.4-1
 - Updated to 1.11.4
 
