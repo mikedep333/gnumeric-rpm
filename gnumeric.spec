@@ -1,11 +1,16 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.11.4
-Release:          2%{?dist}
+Version:          1.11.5
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
-# bug filed upstream about this being GPL v2 only:
-# http://bugzilla.gnome.org/show_bug.cgi?id=463247
-License:          GPLv2
+#LGPLv2+:
+#plugins/gda/plugin-gda.c
+#plugins/fn-financial/sc-fin.c
+#plugins/plan-perfect/charset.c
+#src/widgets/gnumeric-lazy-list.h
+#GPLv3+:
+#src/parser.c
+License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.11/%{name}-%{version}.tar.xz
 #BuildRequires:    libgnomedb-devel >= 3.0.0
@@ -145,6 +150,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Jul 16 2012 Julian Sikorski <belegdol@fedoraproject.org>- 1:1.11.5-1
+- Updated to 1.11.5
+- Updated the License tag: gnumeric is now GPLv2+ and GPLv3+ and LGPLv2+
+
 * Thu Jun 28 2012 Petr Pisar <ppisar@redhat.com> - 1:1.11.4-2
 - Perl 5.16 rebuild
 
