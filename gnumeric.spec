@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.11.6
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -18,6 +18,7 @@ BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
 BuildRequires:    intltool
 BuildRequires:    perl(ExtUtils::Embed)
+BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
 BuildRequires:    rarian-compat
 BuildRequires:    zlib-devel
@@ -150,6 +151,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Sep 10 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.6-2
+- Added pygobject3-devel to BuildRequires (RH #849487)
+
 * Sun Sep 09 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.6-1
 - Updated to 1.11.6
 
