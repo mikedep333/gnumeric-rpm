@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.11.6
-Release:          2%{?dist}
+Version:          1.11.90
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -151,6 +151,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sun Nov 18 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.90-1
+- Updated to 1.11.90
+
 * Mon Sep 10 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.6-2
 - Added pygobject3-devel to BuildRequires (RH #849487)
 
