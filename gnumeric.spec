@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.11.90
+Version:          1.12.0
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -12,7 +12,7 @@ Summary:          Spreadsheet program for GNOME
 #src/parser.c
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
-Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.11/%{name}-%{version}.tar.xz
+Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
@@ -151,6 +151,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed Dec 19 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.0-1
+- Updated to 1.12.0
+
 * Sun Nov 18 2012 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.11.90-1
 - Updated to 1.11.90
 
