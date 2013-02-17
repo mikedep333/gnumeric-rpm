@@ -140,6 +140,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/applications/fedora-%{name}.desktop
 %else
 %{_datadir}/applications/%{name}.desktop
+%endif
 # The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
 %dir %{_datadir}/omf/%{name}
 %{_mandir}/man1/*
