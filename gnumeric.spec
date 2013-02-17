@@ -159,7 +159,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
-* Sat Feb 17 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.12.0-3
+* Sun Feb 17 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.12.0-3
 - De-vendorize desktop file on F19+ (https://fedorahosted.org/fesco/ticket/1077)
 - Remove category 'Education' from desktop file
 
