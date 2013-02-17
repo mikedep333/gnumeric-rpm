@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.0
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -75,10 +75,14 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %find_lang %{name} --all-name --with-gnome
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
-desktop-file-install --vendor fedora --delete-original                  \
+desktop-file-install --delete-original                                  \
+%if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
+  --vendor fedora                                                       \
+%endif
   --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
   --add-category Office                                                 \
   --add-category Spreadsheet                                            \
+  --remove-category Education                                           \
   --remove-category Science                                             \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
@@ -132,7 +136,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/%{version}
+%if (0%{?fedora} && 0%{?fedora} < 19) || (0%{?rhel} && 0%{?rhel} < 7)
 %{_datadir}/applications/fedora-%{name}.desktop
+%else
+%{_datadir}/applications/%{name}.desktop
 # The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
 %dir %{_datadir}/omf/%{name}
 %{_mandir}/man1/*
@@ -151,6 +158,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Feb 17 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.12.0-3
+- De-vendorize desktop file on F19+ (https://fedorahosted.org/fesco/ticket/1077)
+- Remove category 'Education' from desktop file
+
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:1.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
