@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.0
-Release:          3%{?dist}
+Version:          1.12.1
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -159,6 +159,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Mar 09 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.1-1
+- Updated to 1.12.1
+
 * Sun Feb 17 2013 Christoph Wickert <cwickert@fedoraproject.org> - 1:1.12.0-3
 - De-vendorize desktop file on F19+ (https://fedorahosted.org/fesco/ticket/1077)
 - Remove category 'Education' from desktop file
