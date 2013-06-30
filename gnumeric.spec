@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.2
+Version:          1.12.3
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -159,6 +159,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sun Jun 30 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.3-1
+- Updated to 1.12.3
+- Corrected incorrect %%changelog dates
+
 * Mon Apr 29 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.2-1
 - Updated to 1.12.2
 
@@ -290,7 +294,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 * Mon Feb 22 2010 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.10.0-1
 - New upstream
 
-* Wed Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-3
+* Thu Dec 31 2009 Huzaifa Sidhpurwala <huzaifas@redhat.com> 1:1.9.17-3
 - Upstream bump to 1.9.17
 - Apply gnome bz patch #605043
 - BR goffice-devel >= 1.7.17
@@ -464,7 +468,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 * Fri Dec 17 2004 Caolan McNamara <caolanm@redhat.com> 1.4.1-3
 - dubious "lib" usage from 64bit POV
 
-* Thu Dec 17 2004 Caolan McNamara <caolanm@redhat.com> 1.4.1-2
+* Fri Dec 17 2004 Caolan McNamara <caolanm@redhat.com> 1.4.1-2
 - RH#143161# crash on reading corrupt excel file
 
 * Wed Dec 15 2004 Caolan McNamara <caolanm@redhat.com> 1.4.1-1
