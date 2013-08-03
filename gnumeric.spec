@@ -17,7 +17,10 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{v
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
 BuildRequires:    intltool
+BuildRequires:    perl
 BuildRequires:    perl(ExtUtils::Embed)
+BuildRequires:    perl(Getopt::Long)
+BuildRequires:    perl(strict)
 BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
 BuildRequires:    rarian-compat
@@ -161,6 +164,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %changelog
 * Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 1:1.12.4-2
 - Perl 5.18 rebuild
+- Build-require dependencies for embedder
 
 * Wed Jul 17 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.4-1
 - Updated to 1.12.4
