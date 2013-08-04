@@ -20,6 +20,7 @@ BuildRequires:    intltool
 BuildRequires:    perl
 BuildRequires:    perl(ExtUtils::Embed)
 BuildRequires:    perl(Getopt::Long)
+BuildRequires:    perl(IO::Compress::Gzip)
 BuildRequires:    perl(strict)
 BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
