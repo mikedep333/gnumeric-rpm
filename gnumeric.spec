@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.4
-Release:          2%{?dist}
+Version:          1.12.5
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -17,11 +17,11 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{v
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
 BuildRequires:    intltool
-BuildRequires:    perl
+BuildRequires:    libgda-ui-devel
 BuildRequires:    perl(ExtUtils::Embed)
 BuildRequires:    perl(Getopt::Long)
 BuildRequires:    perl(IO::Compress::Gzip)
-BuildRequires:    perl(strict)
+BuildRequires:    psiconv-devel
 BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
 BuildRequires:    rarian-compat
@@ -132,8 +132,8 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/%{version}
 %exclude %{_libdir}/%{name}/%{version}/plugins/perl-*
-#%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
-#%exclude %{_libdir}/%{name}/%{version}/plugins/gnome-db
+%exclude %{_libdir}/%{name}/%{version}/plugins/gdaif
+%exclude %{_libdir}/%{name}/%{version}/plugins/psiconv
 %{_datadir}/glib-2.0/schemas/org.gnome.gnumeric.*
 %{_datadir}/pixmaps/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
@@ -156,13 +156,17 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 %files plugins-extras
 %{_libdir}/%{name}/%{version}/plugins/perl-*
+%{_libdir}/%{name}/%{version}/plugins/gdaif
+%{_libdir}/%{name}/%{version}/plugins/psiconv
 %{_libdir}/goffice/*/plugins/gnumeric/gnumeric.so
 %{_libdir}/goffice/*/plugins/gnumeric/plugin.xml
-#%{_libdir}/%{name}/%{version}/plugins/gdaif
-#%{_libdir}/%{name}/%{version}/plugins/gnome-db
 
 
 %changelog
+* Sun Aug 25 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.5-1
+- Updated to 0.12.5
+- Added libgda and psiconv support
+
 * Sat Aug 03 2013 Petr Pisar <ppisar@redhat.com> - 1:1.12.4-2
 - Perl 5.18 rebuild
 - Build-require dependencies for embedder
