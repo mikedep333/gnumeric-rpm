@@ -145,6 +145,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %else
 %{_datadir}/applications/%{name}.desktop
 %endif
+%{_datadir}/appdata/%{name}.appdata.xml
 # The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
 %dir %{_datadir}/omf/%{name}
 %{_mandir}/man1/*
@@ -165,6 +166,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %changelog
 * Tue Oct 15 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.8-1
 - Updated to 1.12.8
+- Added appdata.xml
 
 * Sat Sep 14 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.7-1
 - Updated to 1.12.7
