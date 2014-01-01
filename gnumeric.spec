@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.8
+Version:          1.12.9
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -164,6 +164,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Wed Jan 01 2014 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.9-1
+- Updated to 1.12.9
+
 * Tue Oct 15 2013 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.8-1
 - Updated to 1.12.8
 - Added appdata.xml
