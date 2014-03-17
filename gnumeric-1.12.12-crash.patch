@@ -1,0 +1,32 @@
+From b0dbfbb8b7dcd1ccc9bd68bb7a8c631c1bb15ddb Mon Sep 17 00:00:00 2001
+From: Morten Welinder <terra@gnome.org>
+Date: Sun, 16 Mar 2014 17:47:12 +0000
+Subject: xls: fix crash reading a strange header/footer record.
+
+---
+(limited to 'plugins/excel/ms-excel-util.c')
+
+diff --git a/plugins/excel/ms-excel-util.c b/plugins/excel/ms-excel-util.c
+index 79d6e50..4bb9160 100644
+--- a/plugins/excel/ms-excel-util.c
++++ b/plugins/excel/ms-excel-util.c
+@@ -750,12 +750,16 @@ void
+ xls_header_footer_import (PrintHF *hf, const char *txt)
+ {
+ 	char section = 'L';
+-	GString *accum = g_string_new (NULL);
++	GString *accum;
+ 
+ 	g_free (hf->left_format); hf->left_format = g_strdup ("");
+ 	g_free (hf->middle_format); hf->middle_format = g_strdup ("");
+ 	g_free (hf->right_format); hf->right_format = g_strdup ("");
+ 
++	if (!txt)
++		return;
++
++	accum = g_string_new (NULL);
+ 	while (1) {
+ 		if (txt[0] == 0 ||
+ 		    (txt[0] == '&' && strchr ("LCR", txt[1]))) {
+--
+cgit v0.9.2
