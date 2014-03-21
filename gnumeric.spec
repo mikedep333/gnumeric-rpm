@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.12
-Release:          2%{?dist}
+Version:          1.12.13
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -13,7 +13,6 @@ Summary:          Spreadsheet program for GNOME
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
-Patch0:           %{name}-%{version}-crash.patch
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
@@ -61,7 +60,6 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
-%patch0 -p1 -b .crash
 
 chmod -x plugins/excel/rc4.?
 
@@ -165,6 +163,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Fri Mar 21 2014 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.13-1
+- Updated to 1.12.13
+
 * Mon Mar 17 2014 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.12-2
 - Fixed crash on strange .xls files (RH #1076912)
 
