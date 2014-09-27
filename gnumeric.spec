@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.17
-Release:          3%{?dist}
+Version:          1.12.18
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -163,6 +163,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Sep 27 2014 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.18-1
+- Updated to 1.12.18
+
 * Thu Aug 28 2014 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.12.17-3
 - Perl 5.20 rebuild
 
