@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.20
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -26,6 +26,7 @@ BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
 BuildRequires:    rarian-compat
 BuildRequires:    zlib-devel
+BuildRequires:    libappstream-glib
 Requires:         hicolor-icon-theme
 Requires(post):   /sbin/ldconfig
 Requires(postun): /sbin/ldconfig
@@ -75,6 +76,15 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
+
+# Update the screenshot shown in the software center
+#
+# NOTE: It would be *awesome* if this file was pushed upstream.
+#
+# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
+#
+appstream-util replace-screenshots $RPM_BUILD_ROOT%{_datadir}/appdata/gnumeric.appdata.xml \
+  "https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/gnumeric/Screenshot from 2013-10-10 14:19:50.png"
 
 %find_lang %{name} --all-name --with-gnome
 
@@ -163,6 +173,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Mar 30 2015 Richard Hughes <rhughes@redhat.com> - 1:1.12.20-2
+- Use better AppData screenshots
+
 * Fri Feb 06 2015 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.20-1
 - Updated to 1.12.20
 
