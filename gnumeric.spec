@@ -14,6 +14,7 @@ License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
 #BuildRequires:    libgnomedb-devel >= 3.0.0
+BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.9.2
 BuildRequires:    intltool
@@ -175,6 +176,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %changelog
 * Sun Feb 07 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.27-1
 - Updated to 1.12.27
+- Added bison to BuildRequires
 
 * Wed Feb 03 2016 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
