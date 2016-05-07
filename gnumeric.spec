@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.28
+Version:          1.12.29
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -16,7 +16,7 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{v
 #BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
-BuildRequires:    goffice-devel >= 0.9.2
+BuildRequires:    goffice-devel >= 0.10.28
 BuildRequires:    intltool
 BuildRequires:    libgda-ui-devel
 BuildRequires:    perl(ExtUtils::Embed)
@@ -174,6 +174,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat May 07 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.29-1
+- Updated to 1.12.29
+
 * Wed Mar 23 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.28-1
 - Updated to 1.12.28
 
