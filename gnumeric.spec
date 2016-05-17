@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.29
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -180,6 +180,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue May 17 2016 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.12.29-3
+- Perl 5.24 rebuild
+
 * Sun May 15 2016 Hans de Goede <hdegoede@redhat.com> - 1:1.12.29-2
 - Fix "usage of MIME type "zz-application/zz-winassoc-xls" is discouraged"
   warning showing every time a rpm transaction runs update-desktop-database
