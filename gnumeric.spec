@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.29
-Release:          3%{?dist}
+Version:          1.12.30
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -13,13 +13,6 @@ Summary:          Spreadsheet program for GNOME
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
-# As explained in https://bugs.freedesktop.org/show_bug.cgi?id=41286
-# shared-mime-info has zz-application/zz-winassoc-xls as an alias for
-# application/vnd.ms-excel, so there is no need to explicitly list it
-# Remove it to silence update-desktop-database warnings
-# Upstream: https://bugzilla.gnome.org/show_bug.cgi?id=766471
-Patch0:           gnumeric-no-zz-in-desktop.patch
-#BuildRequires:    libgnomedb-devel >= 3.0.0
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.10.28
@@ -68,12 +61,11 @@ This package contains the following additional plugins for gnumeric:
 
 %prep
 %setup -q
-%patch0 -p1
 chmod -x plugins/excel/rc4.?
 
 
 %build
-%configure --enable-ssindex
+%configure --disable-silent-rules
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -180,6 +172,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Jun 20 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.30-1
+- Updated to 1.12.30
+- Dropped upstreamed patches
+- Spec file cleanups
+
 * Tue May 17 2016 Jitka Plesnikova <jplesnik@redhat.com> - 1:1.12.29-3
 - Perl 5.24 rebuild
 
