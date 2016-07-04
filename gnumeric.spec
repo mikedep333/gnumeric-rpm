@@ -18,6 +18,8 @@ BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.10.28
 BuildRequires:    intltool
 BuildRequires:    libgda-ui-devel
+BuildRequires:    perl-devel
+BuildRequires:    perl-generators
 BuildRequires:    perl(ExtUtils::Embed)
 BuildRequires:    perl(Getopt::Long)
 BuildRequires:    perl(IO::Compress::Gzip)
