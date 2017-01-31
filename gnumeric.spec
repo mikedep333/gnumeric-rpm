@@ -16,6 +16,7 @@ Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{v
 Patch0:           %{name}-%{version}-destdir.patch
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
+BuildRequires:    docbook-dtds
 BuildRequires:    goffice-devel >= 0.10.28
 BuildRequires:    intltool
 BuildRequires:    itstool
@@ -176,7 +177,7 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 * Tue Jan 31 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.33-1
 - Updated to 1.12.33
 - Fixed missing $DESTDIR in doc/Makefile.{in,am}
-- Added itstool to BuildRequires, removed rarian-compat
+- Added docbook-dtds and itstool to BuildRequires, removed rarian-compat
 
 * Sat Aug 27 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.32-1
 - Updated to 1.12.32
