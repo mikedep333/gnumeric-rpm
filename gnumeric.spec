@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.32
+Version:          1.12.33
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -13,10 +13,12 @@ Summary:          Spreadsheet program for GNOME
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
+Patch0:           %{name}-%{version}-destdir.patch
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    goffice-devel >= 0.10.28
 BuildRequires:    intltool
+BuildRequires:    itstool
 BuildRequires:    libgda-ui-devel
 BuildRequires:    perl-devel
 BuildRequires:    perl-generators
@@ -26,7 +28,6 @@ BuildRequires:    perl(IO::Compress::Gzip)
 BuildRequires:    psiconv-devel
 BuildRequires:    pygobject3-devel
 BuildRequires:    pygtk2-devel
-BuildRequires:    rarian-compat
 BuildRequires:    zlib-devel
 BuildRequires:    libappstream-glib
 Requires:         hicolor-icon-theme
@@ -62,7 +63,7 @@ This package contains the following additional plugins for gnumeric:
 
 
 %prep
-%setup -q
+%autosetup -p1
 chmod -x plugins/excel/rc4.?
 
 
@@ -156,8 +157,6 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 %{_datadir}/applications/%{name}.desktop
 %endif
 %{_datadir}/appdata/%{name}.appdata.xml
-# The actual omf file is in gnumeric.lang, but find-lang doesn't own the dir!
-%dir %{_datadir}/omf/%{name}
 %{_mandir}/man1/*
 
 %files devel
@@ -174,6 +173,11 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue Jan 31 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.33-1
+- Updated to 1.12.33
+- Fixed missing $DESTDIR in doc/Makefile.{in,am}
+- Added itstool to BuildRequires, removed rarian-compat
+
 * Sat Aug 27 2016 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.32-1
 - Updated to 1.12.32
 
