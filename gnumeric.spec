@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.33
-Release:          2%{?dist}
+Version:          1.12.34
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -13,8 +13,6 @@ Summary:          Spreadsheet program for GNOME
 License:          GPLv2+ and GPLv3+ and LGPLv2+
 URL:              http://projects.gnome.org/gnumeric/
 Source:           ftp://ftp.gnome.org/pub/GNOME/sources/%{name}/1.12/%{name}-%{version}.tar.xz
-Patch0:           %{name}-%{version}-destdir.patch
-Patch1:           %{name}-%{version}-docbook.patch
 BuildRequires:    bison
 BuildRequires:    desktop-file-utils
 BuildRequires:    docbook-dtds
@@ -65,7 +63,7 @@ This package contains the following additional plugins for gnumeric:
 
 
 %prep
-%autosetup -p1
+%autosetup
 chmod -x plugins/excel/rc4.?
 
 
@@ -175,6 +173,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Mon Mar 27 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.34-1
+- Updated to 1.12.34
+- Dropped upstreamed patches
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.33-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
