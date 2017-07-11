@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.34
+Version:          1.12.35
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -50,7 +50,7 @@ develop gnumeric-based applications.
 
 
 %package plugins-extras
-Summary:          Files necessary to develop gnumeric-based applications
+Summary:          Additional plugins for gnumeric
 Requires:         %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
@@ -173,6 +173,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Tue Jul 11 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.35-1
+- Updated to 1.12.35
+- Corrected -plugins-extras subpackage summary (RH #1464742)
+
 * Mon Mar 27 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.34-1
 - Updated to 1.12.34
 - Dropped upstreamed patches
