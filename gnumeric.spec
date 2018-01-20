@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
 Version:          1.12.38
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -173,6 +173,9 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Jan 20 2018 Björn Esser <besser82@fedoraproject.org> - 1:1.12.38-2
+- Rebuilt for switch to libxcrypt
+
 * Sun Dec 31 2017 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.38-1
 - Updated to 1.12.38
 
