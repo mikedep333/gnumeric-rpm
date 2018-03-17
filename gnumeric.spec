@@ -1,7 +1,7 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.38
-Release:          3%{?dist}
+Version:          1.12.39
+Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
 #plugins/gda/plugin-gda.c
@@ -31,8 +31,6 @@ BuildRequires:    pygtk2-devel
 BuildRequires:    zlib-devel
 BuildRequires:    libappstream-glib
 Requires:         hicolor-icon-theme
-Requires(post):   /sbin/ldconfig
-Requires(postun): /sbin/ldconfig
 
 %description
 Gnumeric is a spreadsheet program for the GNOME GUI desktop
@@ -113,27 +111,7 @@ rm $RPM_BUILD_ROOT/usr/share/pixmaps/%{name}/win32-%{name}.ico
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
-%post
-/sbin/ldconfig
-/usr/bin/update-desktop-database &> /dev/null || :
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-
-%postun
-/sbin/ldconfig
-if [ $1 -eq 0 ] ; then
-     glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-fi
-/usr/bin/update-desktop-database &> /dev/null || :
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-
-%posttrans
-glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+%ldconfig_scriptlets
 
 
 %files -f %{name}.lang
@@ -173,6 +151,10 @@ glib-compile-schemas %{_datadir}/glib-2.0/schemas &> /dev/null || :
 
 
 %changelog
+* Sat Mar 17 2018 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.39-1
+- Updated to 1.10.39
+- Removed and/or updated obsolete scriptlets
+
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.12.38-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
