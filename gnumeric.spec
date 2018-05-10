@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.40
+Version:          1.12.41
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -66,7 +66,7 @@ chmod -x plugins/excel/rc4.?
 
 
 %build
-%configure --disable-silent-rules
+%configure --disable-silent-rules PYTHON=/usr/bin/python2
 # Don't use rpath!
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
@@ -151,6 +151,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu May 10 2018 Julian Sikorski <belegdol@fedoraproject.org> - 0:1.12.41-2
+- Updated to 1.12.41
+- Ensured python2 is called explicitly as per https://fedoraproject.org/wiki/Changes/Avoid_usr_bin_python_in_RPM_Build
+
 * Sun May 06 2018 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.40-1
 - Updated to 1.12.40
 
